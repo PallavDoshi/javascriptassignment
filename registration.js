@@ -1,7 +1,6 @@
-var flag = 0;
-
 function register(event)
 { 
+    var flag = 0;
     let email = document.getElementById('email').value;
     let fname = document.getElementById('fname').value; 
     let sname = document.getElementById('sname').value;
@@ -9,18 +8,26 @@ function register(event)
     let password = document.getElementById('password').value;
     let image = document.getElementById('image');
     let gender = document.querySelector('input[name="gender"]:checked');
-
     if(gender!=null)
         gender=document.querySelector('input[name="gender"]:checked').value;
-    
-    alert(gender);
 
 
-    exists(email,fname,sname,address,password,gender);   
+    if(flag==0)
+        flag=exists(email,flag);  
+        
+    if(flag==0)
+        flag=isnull(email,fname,sname,address,password,gender,flag);
+
+    if(flag==0)
+        flag=validation(email,fname,sname,password,flag);
+
+    if(flag===0)
+        store(email,fname,sname,address,password,gender);
+
 }
 
 
-function exists(email,fname,sname,address,password,gender)
+function exists(email,flag)
 {
     var codeArray = JSON.parse(localStorage.getItem('users'));
 
@@ -34,12 +41,11 @@ function exists(email,fname,sname,address,password,gender)
         }
     }
 
-    if(flag===0)
-        isnull(email,fname,sname,address,password,gender);
+    return flag;
 }
 
 
-function isnull(email,fname,sname,address,password,gender)
+function isnull(email,fname,sname,address,password,gender,flag)
 {
     flag = 0;
 
@@ -79,15 +85,12 @@ function isnull(email,fname,sname,address,password,gender)
         flag++;
     }
     
-    if(flag===0)
-        validation(email,fname,sname,address,password,gender);
+    return flag;
 }
 
 
-function validation(email,fname,sname,address,password,gender)
+function validation(email,fname,sname,password,flag)
 {
-    flag = 0;
-
     let emailre = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let passwordre = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
     let namere = /^[A-Za-z]+$/;
@@ -116,8 +119,7 @@ function validation(email,fname,sname,address,password,gender)
         flag++;
     }
 
-    if(flag===0)
-        store(email,fname,sname,address,password,gender);
+    return flag;
 }
 
 
@@ -138,5 +140,10 @@ function store(email,fname,sname,address,password,gender)
     codeArray.push(codeObject);
     localStorage.setItem('users',JSON.stringify(codeArray));
 
-    /* window.location = "login.html"; */
+    location.assign('login.html');
+}
+
+function save()
+{
+    
 }

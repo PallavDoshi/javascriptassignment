@@ -28,8 +28,3 @@ function edit()
 
     document.getElementById('save').style.display='inline';
 }
-
-function save()
-{
-    
-}
