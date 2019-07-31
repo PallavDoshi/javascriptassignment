@@ -7,22 +7,22 @@
 </head>
 <body onload="profile()">
     <form>
-        Email:  <input type="email" id="email" disabled='true' />
+        Email:  <input type="email" id="email" disabled='true' required/>
         <br><br>
 
-        First name:  <input type="text" id="fname" disabled='true' />
-        &nbsp;Last name:  <input type="text" id="sname" disabled='true' />
+        First name:  <input type="text" id="fname" disabled='true' required/>
+        &nbsp;Last name:  <input type="text" id="sname" disabled='true' required/>
         <br><br>
 
         Gender:&nbsp;&nbsp;
-        Male<input type="radio" name="gender" id="male" disabled='true' />
-        Female<input type="radio" name="gender" id="female" disabled='true' />
+        Male<input type="radio" name="gender" id="male" disabled='true' required/>
+        Female<input type="radio" name="gender" id="female" disabled='true' required/>
         <br><br>
 
-        Address: <input type="text" id="address" disabled='true' />
+        Address: <input type="text" id="address" disabled='true' required/>
         <br><br>
 
-        Profile image: <input type="file" id="image" accept="image/*" disabled='true' />
+        Profile image: <input type="file" id="image" accept="image/*" disabled='true' required/>
         <br><br>
 
         <input type="button" value='edit' onclick="edit()" />

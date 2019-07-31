@@ -1,14 +1,14 @@
 var flag = 0;
 
-function login()
+function login(event)
 {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
 
-    isblank(email,password);
+    isnull(email,password);
 }
 
-function isblank(email,password)
+function isnull(email,password)
 {
     if(email==='')
     {
@@ -22,8 +22,8 @@ function isblank(email,password)
         flag++;
     }
 
-    if(flag===0)
-        emailvalidation(email,password);
+    if(flag==0)
+        emailvalidation(email,password)
 }
 
 function emailvalidation(email,password)

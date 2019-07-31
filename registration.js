@@ -8,7 +8,13 @@ function register(event)
     let address = document.getElementById('address').value;
     let password = document.getElementById('password').value;
     let image = document.getElementById('image');
-    let gender = document.querySelector('input[name="gender"]:checked').value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+
+    if(gender!=null)
+        gender=document.querySelector('input[name="gender"]:checked').value;
+    
+    alert(gender);
+
 
     exists(email,fname,sname,address,password,gender);   
 }
