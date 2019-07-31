@@ -9,6 +9,7 @@ function profile()
         (document.getElementById('fname')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].fname;
         (document.getElementById('sname')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].sname;
         (document.getElementById('address')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].address;
+        (document.getElementById('password')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].password;
         
         if((JSON.parse(localStorage.getItem('users')))[ivalue].gender=='male')
             (document.getElementById('male')).checked = true;
@@ -25,6 +26,7 @@ function edit()
     document.getElementById('male').disabled = false;
     document.getElementById('female').disabled = false;
     document.getElementById('address').disabled = false;
+    document.getElementById('password').disabled = false;
 
     document.getElementById('save').style.display='inline';
 }

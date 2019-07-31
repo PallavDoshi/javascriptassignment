@@ -16,11 +16,14 @@
         <br><br>
 
         Gender:&nbsp;&nbsp;
-        Male<input type="radio" name="gender" id="male" disabled='true' required/>
-        Female<input type="radio" name="gender" id="female" disabled='true' required/>
+        Male<input type="radio" name="gender" value="male" id="male" disabled='true' required/>
+        Female<input type="radio" name="gender" value="female" id="female" disabled='true' required/>
         <br><br>
 
         Address: <input type="text" id="address" disabled='true' required/>
+        <br><br>
+
+        Password:  <input type="password" id="password" disabled='true'/>
         <br><br>
 
         Profile image: <input type="file" id="image" accept="image/*" disabled='true' required/>
@@ -28,7 +31,7 @@
 
         <input type="button" value='edit' onclick="edit()" />
         &nbsp;&nbsp;
-        <input type="button" value='save' id="save" onclick="save()" style="display: none" />
+        <input type="button" value='save' id="save" onclick="update()" style="display: none" />
         <br><br>
     </form>
 </body>
