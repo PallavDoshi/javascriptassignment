@@ -8,31 +8,32 @@
 </head>
 <body onload="profile()">
     <form>
-        Email:  <input type="email" id="email" disabled='true' required/>
+        Email:  <input type="email" id="email" disabled='true' />
         <br><br>
 
-        First name:  <input type="text" id="fname" disabled='true' required/>
-        &nbsp;Last name:  <input type="text" id="sname" disabled='true' required/>
+        First name:  <input type="text" id="fname" disabled='true' />
+        &nbsp;Last name:  <input type="text" id="sname" disabled='true' />
         <br><br>
 
         Gender:&nbsp;&nbsp;
-        Male<input type="radio" name="gender" value="male" id="male" disabled='true' required/>
-        Female<input type="radio" name="gender" value="female" id="female" disabled='true' required/>
+        Male<input type="radio" name="gender" value="male" id="male" disabled='true' />
+        Female<input type="radio" name="gender" value="female" id="female" disabled='true' />
         <br><br>
 
-        Address: <input type="text" id="address" disabled='true' required/>
+        Address: <input type="text" id="address" disabled='true' />
         <br><br>
 
         Password:  <input type="password" id="password" disabled='true'/>
         <br><br>
 
-        Profile image: <input type="file" id="image" accept="image/*" disabled='true' required/>
+        Profile image: <input type="file" id="image" accept="image/*" disabled='true' />
         <br><br>
 
         <input type="button" value='edit' onclick="edit()" />
         &nbsp;&nbsp;
         <input type="button" value='save' id="save" onclick="update()" style="display: none" />
         <br><br>
+        <input type="button" value='logout' id="logout" onclick="out()" />
     </form>
 </body>
 </html>

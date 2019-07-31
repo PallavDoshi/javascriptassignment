@@ -30,3 +30,10 @@ function edit()
 
     document.getElementById('save').style.display='inline';
 }
+
+function out()
+{
+
+    location.assign('login.html');
+    sessionStorage.clear();
+}
