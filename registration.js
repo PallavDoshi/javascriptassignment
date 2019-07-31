@@ -1,24 +1,35 @@
 var flag = 0;
 
-function register()
+function register(event)
 { 
     let email = document.getElementById('email').value;
     let fname = document.getElementById('fname').value; 
     let sname = document.getElementById('sname').value;
     let address = document.getElementById('address').value;
     let password = document.getElementById('password').value;
+    let image = document.getElementById('image');
+    let gender = document.querySelector('input[name="gender"]:checked').value;
 
-    if(document.getElementById('male').checked)
-        var gender = 'male';
-
-    else if(document.getElementById('female').checked)
-        var gender = 'female';
-
-    else
-        var gender = '';
+    exists(email,fname,sname,address,password,gender);   
+}
 
 
-    isnull(email,fname,sname,address,password,gender);
+function exists(email,fname,sname,address,password,gender)
+{
+    var codeArray = JSON.parse(localStorage.getItem('users'));
+
+    for(i=0;i<codeArray.length;i++)
+    {
+        if(email===codeArray[i].email)
+        {
+            alert('The email already exists!');
+            flag++;
+            break;
+        }
+    }
+
+    if(flag===0)
+        isnull(email,fname,sname,address,password,gender);
 }
 
 
@@ -87,7 +98,7 @@ function validation(email,fname,sname,address,password,gender)
         flag++;
     }
 
-    if(namere.test(fname)==false)
+    if(namere.test(fname)===false)
     {
         alert('Please enter a valid first name');
         flag++;
@@ -117,21 +128,9 @@ function store(email,fname,sname,address,password,gender)
         gender,
     }
 
-    let codeArray = JSON.parse(localStorage.getItem('users'));
+    let codeArray = JSON.parse(localStorage.getItem('users')) || [];
+    codeArray.push(codeObject);
+    localStorage.setItem('users',JSON.stringify(codeArray));
 
-    if(codeArray === null)
-    {
-        codeArray = [];
-
-        codeArray.push(codeObject);
-        localStorage.setItem('users',JSON.stringify(codeArray));
-    }
-
-    else
-    {
-        codeArray.push(codeObject);
-        localStorage.setItem('users',JSON.stringify(codeArray));
-    }
-
-    window.location = "login.html";
+    /* window.location = "login.html"; */
 }

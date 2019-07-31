@@ -1,29 +1,60 @@
-/* LOGIN PAGE */
+var flag = 0;
 
-function validation()
+function login()
 {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
-    var emailre = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    var passwordre = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
+    isblank(email,password);
+}
+
+function isblank(email,password)
+{
     if(email==='')
     {
         alert('email id cannot be blank');
-    }
-
-    else if(emailre.test(email)==false)
-    {
-        alert(email);
+        flag++;
     }
 
     if(password==='')
     {
         alert('password cannot be blank');
+        flag++;
     }
 
-    else if(passwordre.test(password)==false)
+    if(flag===0)
+        emailvalidation(email,password);
+}
+
+function emailvalidation(email,password)
+{
+    var codeArray = JSON.parse(localStorage.getItem('users'));
+    var ivalue = -1;
+
+    for(i=0;i<codeArray.length;i++)
     {
-        alert('Please enter a valid password');
+        if(email===codeArray[i].email)
+        {
+            ivalue = i;
+            break;
+        }
     }
+
+    if(ivalue==-1)
+    {
+        alert('The email does not exist');
+    }
+
+    else if(password===codeArray[ivalue].password)
+    {
+        sessionStorage.setItem('email', email);
+        sessionStorage.setItem('ivalue', i);
+        location.assign('profile.html');
+    }
+
+    else
+    {
+        alert('Wrong password! Try again');
+    }
+
 }
