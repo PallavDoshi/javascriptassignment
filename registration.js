@@ -49,7 +49,7 @@ function exists(email,flag)
 
 function isnull(email,fname,sname,address,password,gender,flag)
 {
-    flag = 0;
+    //flag = 0;
 
     if(email==='')
     {

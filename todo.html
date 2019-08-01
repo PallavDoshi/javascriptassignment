@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Todo</title>
+    <script src="todo.js"></script>
+</head>
+<body onload="fetchemail()">
+        CREATE:
+    <form>
+        <br>
+        Title:  <input type="text" id="title">
+        <br><br>
+        Desc:  <input type="text" id="description">
+        <br><br>
+        Start Date:  <input type="date" id="startdate">
+        <br><br>
+        Start Date:  <input type="date" id="enddate">
+        <br><br>
+        Reminder Date:  <input type="date" id="reminderdate">
+        <br><br>
+        Category:&nbsp;&nbsp;
+        <select id="category">
+            <option value="work">Work</option>
+            <option value="home">Home</option>
+            <option value="personal">Personal</option>
+        </select>
+        <br><br>
+        File: <input type="file" id="file">&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value="Submit" id="submit" onclick="todosave()">
+    </form>
+
+    <br><br>
+        LIST:
+    <br>
+</body>
+</html>

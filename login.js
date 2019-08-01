@@ -49,7 +49,7 @@ function emailvalidation(email,password)
     {
         sessionStorage.setItem('email', email);
         sessionStorage.setItem('ivalue', i);
-        location.assign('profile.html');
+        location.assign('todo.html');
     }
 
     else
