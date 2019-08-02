@@ -39,14 +39,16 @@
     &nbsp;&nbsp;
     <input type="button" value='Delete' onclick="deletetodo()" />
     &nbsp;&nbsp;
-    <input type="button" value='Filter' onclick="filter()" />
-    &nbsp;&nbsp;
-    <select id="filter">
-        <option value="--">--</option>
+    <select id="filter" onchange="filter()">
+        <option value="">--</option>
         <option value="drange">Date Range</option>
         <option value="done">Done</option>
         <option value="pending">Pending</option>
+        <option value="rfilter">Remove Filter</option>
     </select>
+    <input type="date" id="fromdate" style="display: none">
+    <input type="date" id="todate" style="display: none">
+    <input type="button" id="search" value="search" onclick="datefilter()" style="display: none">
     <br><br>
     <div id="divid"></div>
 </body>
