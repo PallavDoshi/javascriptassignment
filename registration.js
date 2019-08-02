@@ -6,17 +6,18 @@ function register(event)
     let sname = document.getElementById('sname').value;
     let address = document.getElementById('address').value;
     let password = document.getElementById('password').value;
-    let image = document.getElementById('image');
     let gender = document.querySelector('input[name="gender"]:checked');
     if(gender!=null)
         gender=document.querySelector('input[name="gender"]:checked').value;
 
+    let image = sessionStorage.getItem('tempimgdata');
+    
 
     if(flag==0)
         flag=exists(email,flag);  
         
     if(flag==0)
-        flag=isnull(email,fname,sname,address,password,gender,flag);
+        flag=isnull(image,email,fname,sname,address,password,gender,flag);
 
     if(flag==0)
         flag=emailvalidation(email,flag);
@@ -25,7 +26,27 @@ function register(event)
         flag=validation(fname,sname,password,flag);
 
     if(flag===0)
-        store(email,fname,sname,address,password,gender);
+        store(image,email,fname,sname,address,password,gender);
+}
+
+function changeProfilePicture()
+{
+    var Image =document.getElementById("image").files[0];
+    
+
+    var reader = new FileReader();
+    reader.readAsDataURL(Image);
+        
+    reader.onload = function () 
+    {
+        var imgdata = reader.result;
+        sessionStorage.setItem("tempimgdata",imgdata);
+        document.getElementById("userpic").src=sessionStorage.tempimgdata;
+    };
+
+    reader.onerror = function (error) 
+    {};
+
 }
 
 
@@ -47,7 +68,7 @@ function exists(email,flag)
 }
 
 
-function isnull(email,fname,sname,address,password,gender,flag)
+function isnull(image,email,fname,sname,address,password,gender,flag)
 {
     //flag = 0;
 
@@ -81,6 +102,12 @@ function isnull(email,fname,sname,address,password,gender,flag)
         flag++;
     }
     
+    if(image==null)
+    {
+        alert('image cannot be blank');
+        flag++;
+    }
+
     if(gender==null)
     {
         alert('Please select a gender');
@@ -130,7 +157,7 @@ function validation(fname,sname,password,flag)
 }
 
 
-function store(email,fname,sname,address,password,gender)
+function store(image,email,fname,sname,address,password,gender)
 {
     let codeObject =
     {   
@@ -140,7 +167,8 @@ function store(email,fname,sname,address,password,gender)
         sname,
         address,
         password,
-        gender
+        gender,
+        image
     }
 
     let codeArray = JSON.parse(localStorage.getItem('users')) || [];
