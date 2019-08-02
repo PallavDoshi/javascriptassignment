@@ -152,8 +152,8 @@ function fetchemail()
         {
             if(email===codeArray[i].email)
             {
-                var ivalue = i;
-                display(codeArray,ivalue);
+                /* var ivalue = i; */
+                display(codeArray,i);
             }
         }    
     } 
@@ -298,5 +298,75 @@ function update()
         document.getElementById('dispcategoryid'+ivalue).disabled = true;
 
         document.getElementById('save').style.display='none';
+        (document.getElementById('checkedid'+updateivalue)).checked=false;
     }
+}
+
+function done()
+{
+    let flag = 0;
+
+    for(i=0;i<codeArray.length;i++)
+    {
+        if((document.getElementById('checkedid'+i)).checked==true)
+        {
+            codeArray[i].status='done';
+            localStorage.setItem('todo',JSON.stringify(codeArray));
+            flag++;
+            location.assign('todo.html');
+        }
+    }
+
+    if(flag==0)
+    {
+        alert('Select something first');
+    }
+}
+
+function deletetodo()
+{
+    let flag = 0;
+
+    for(i=0;i<codeArray.length;i++)
+    {
+        if((document.getElementById('checkedid'+i)).checked==true)
+        {
+            codeArray.splice(i,1);
+            localStorage.setItem('todo',JSON.stringify(codeArray));
+            flag++;
+            location.assign('todo.html');
+        }
+    }
+
+    if(flag==0)
+    {
+        alert('Select something first');
+    }
+}
+
+function filter()
+{
+    let filter = document.getElementById('filter').value;
+    
+    if(filter=='done')
+    {
+        /* for(i=0;i<codeArray.length;i++)
+        {
+            if(email===codeArray[i].email)
+            {
+                if(codeArray[i].status=='done')
+                    display(codeArray,i);
+            }
+        } */        
+        var a=document.getElementById("bodyid");
+	    var deleteChild=a.lastElementChild;
+    
+            
+            while(deleteChild)
+            {
+                a.removeChild(deleteChild);
+                deleteChild=a.lastElementChild;
+            }  
+    }
+
 }

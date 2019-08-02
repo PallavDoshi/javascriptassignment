@@ -4,7 +4,7 @@
     <title>Todo</title>
     <script src="todo.js"></script>
 </head>
-<body onload="fetchemail()">
+<body onload="fetchemail()" >
         CREATE:
     <form>
         <br>
@@ -25,7 +25,6 @@
             <option value="personal">Personal</option>
         </select>
         <br><br>
-        File: <input type="file" id="file">&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" value="Submit" id="submit" onclick="todosave()">
     </form>
 
@@ -35,6 +34,20 @@
     <input type="button" value='edit' onclick="edit()" />
     &nbsp;&nbsp;
     <input type="button" value='save' id="save" onclick="update()" style="display: none" />
+    &nbsp;&nbsp;
+    <input type="button" value='Mark Done' onclick="done()" />
+    &nbsp;&nbsp;
+    <input type="button" value='Delete' onclick="deletetodo()" />
+    &nbsp;&nbsp;
+    <input type="button" value='Filter' onclick="filter()" />
+    &nbsp;&nbsp;
+    <select id="filter">
+        <option value="--">--</option>
+        <option value="drange">Date Range</option>
+        <option value="done">Done</option>
+        <option value="pending">Pending</option>
+    </select>
     <br><br>
+    <div id="divid"></div>
 </body>
 </html>
