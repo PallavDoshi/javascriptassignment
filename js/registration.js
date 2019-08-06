@@ -1,5 +1,12 @@
 function register(event)
 { 
+    document.getElementById('fname').style.border = 'none';
+    document.getElementById('sname').style.border = 'none';
+    document.getElementById('address').style.border = 'none';
+    document.getElementById('password').style.border = 'none';
+    document.getElementById('email').style.border = 'none';
+    document.getElementById('gendererror').style.display = 'none';
+
     var flag = 0;
     let email = document.getElementById('email').value;
     let fname = document.getElementById('fname').value; 
@@ -10,7 +17,9 @@ function register(event)
     if(gender!=null)
         gender=document.querySelector('input[name="gender"]:checked').value;
 
+    
     let image = sessionStorage.getItem('tempimgdata');
+
     
 
     if(flag==0)
@@ -32,7 +41,6 @@ function register(event)
 function changeProfilePicture()
 {
     var Image =document.getElementById("image").files[0];
-    
 
     var reader = new FileReader();
     reader.readAsDataURL(Image);
@@ -41,7 +49,7 @@ function changeProfilePicture()
     {
         var imgdata = reader.result;
         sessionStorage.setItem("tempimgdata",imgdata);
-        document.getElementById("userpic").src=sessionStorage.tempimgdata;
+        document.getElementById("dispimage").src=sessionStorage.tempimgdata;
     };
 
     reader.onerror = function (error) 
@@ -52,7 +60,7 @@ function changeProfilePicture()
 
 function exists(email,flag)
 {
-    var codeArray = JSON.parse(localStorage.getItem('users'));
+    var codeArray = JSON.parse(localStorage.getItem('users')) || [];
 
     for(i=0;i<codeArray.length;i++)
     {
@@ -74,43 +82,47 @@ function isnull(image,email,fname,sname,address,password,gender,flag)
 
     if(email==='')
     {
-        alert('email id cannot be blank');
+        document.getElementById('email').placeholder = 'Please enter an Email';
+        document.getElementById('email').style.border = 'solid 2px rgba(244, 81, 30)';
+
         flag++;
     }
 
     if(fname==='')
     {
-        alert('First Name cannot be blank');
+        document.getElementById('fname').placeholder = 'Please enter your first name';
+        document.getElementById('fname').style.border = 'solid 2px rgba(244, 81, 30)';
+
         flag++;
     }
     
     if(sname==='')
     {
-        alert('Last Name cannot be blank');
+        document.getElementById('sname').placeholder = 'Please enter your last name';
+        document.getElementById('sname').style.border = 'solid 2px rgba(244, 81, 30)';
+
         flag++;
     }
 
     if(address==='')
     {
-        alert('Address cannot be blank');
+        document.getElementById('address').placeholder = 'Please enter your address';
+        document.getElementById('address').style.border = 'solid 2px rgba(244, 81, 30)';
+
         flag++;
     }
     
     if(password==='')
     {
-        alert('Password cannot be blank');
-        flag++;
-    }
-    
-    if(image==null)
-    {
-        alert('image cannot be blank');
+        document.getElementById('password').placeholder = 'Please enter your password';
+        document.getElementById('password').style.border = 'solid 2px rgba(244, 81, 30)';
+
         flag++;
     }
 
     if(gender==null)
     {
-        alert('Please select a gender');
+        document.getElementById('gendererror').style.display = 'inline-block';
         flag++;
     }
     
@@ -188,13 +200,13 @@ function update()
     let sname = document.getElementById('sname').value;
     let address = document.getElementById('address').value;
     let password = document.getElementById('password').value;
-    let image = document.getElementById('image');
+    let image = sessionStorage.getItem('tempimgdata');
     let gender = document.querySelector('input[name="gender"]:checked');
     if(gender!=null)
         gender=document.querySelector('input[name="gender"]:checked').value;
 
     if(flag==0)
-        flag=isnull(email,fname,sname,address,password,gender,flag);
+        flag=isnull(image,email,fname,sname,address,password,gender,flag);
 
     if(flag==0)
         flag=validation(fname,sname,password,flag);
@@ -203,6 +215,7 @@ function update()
     {
         let codeObject =
         {   
+            image,
             email,
             fname,
             sname,
@@ -220,6 +233,9 @@ function update()
         document.getElementById('female').disabled = true;
         document.getElementById('address').disabled = true;
         document.getElementById('password').disabled = true;
+        document.getElementById('image').disabled = true;
+        document.getElementById('profilepic').style.display = 'none';
+        document.getElementById('image').style.display = 'none';
 
         document.getElementById('save').style.display='none';
     }

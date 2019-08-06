@@ -2,33 +2,44 @@ var flag = 0;
 
 function login(event)
 {
+    flag = 0;
+
+    document.getElementById('email').style.border = 'none';
+    document.getElementById('password').style.border = 'none';
+
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
 
-    isnull(email,password);
-}
-
-function isnull(email,password)
-{
-    if(email==='')
-    {
-        alert('email id cannot be blank');
-        flag++;
-    }
-
-    if(password==='')
-    {
-        alert('password cannot be blank');
-        flag++;
-    }
+    flag=isempty(email,password);
 
     if(flag==0)
         emailvalidation(email,password)
 }
 
+function isempty(email,password)
+{
+    if(email==='')
+    {
+        document.getElementById('email').placeholder = 'Please enter an Email';
+        document.getElementById('email').style.border = 'solid 2px rgba(244, 81, 30)';
+
+        flag++;
+    }
+
+    if(password==='')
+    {
+        document.getElementById('password').placeholder = 'Please enter the password';
+        document.getElementById('password').style.border = 'solid 2px rgba(244, 81, 30)';
+
+        flag++;
+    }
+
+    return flag;   
+}
+
 function emailvalidation(email,password)
 {
-    var codeArray = JSON.parse(localStorage.getItem('users'));
+    var codeArray = JSON.parse(localStorage.getItem('users')) || [];
     var ivalue = -1;
 
     for(i=0;i<codeArray.length;i++)
@@ -43,6 +54,7 @@ function emailvalidation(email,password)
     if(ivalue==-1)
     {
         alert('The email does not exist');
+        
     }
 
     else if(password===codeArray[ivalue].password)
@@ -56,5 +68,4 @@ function emailvalidation(email,password)
     {
         alert('Wrong password! Try again');
     }
-
 }

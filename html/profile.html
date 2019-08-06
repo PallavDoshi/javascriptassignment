@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Allura|Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="reset.css">	
+    <script src="../js/profile.js"></script>
+    <link rel="stylesheet" href="../css/profile.css">	
+    <script src="../js/registration.js"></script>
+</head>
+<body onload="profile()">
+    <header>
+        <a href="home.html" class="home"><h6>Systemize</h6></a>
+        <input type="button" value='Log Out' id="logout" onclick="out()" class="button"/>
+        <input type="button" value='My To Do' id="mytodo" onclick="location.assign('todo.html')" class="button"/>        
+
+        <div class="clearfix"></div>
+    </header>
+
+    <main>
+        <div class="logincontainer">
+            <form>
+                <img id="dispimage" src="" alt="Profile Pic" height="150" width="150">
+                <br><br>
+                
+                <span>First name: </span><input type="text" id="fname" disabled='true' class="ipform"/>
+                &nbsp;&nbsp;
+                <span>Last name: </span><input type="text" id="sname" disabled='true' class="ipform"/>
+                <br><br>
+
+                <span style="margin-left: -10px">Address: </span><input type="text" id="address" disabled='true' class="ipform" style="width: 500px"/>
+                <br><br>
+        
+                <span>Gender:</span>&nbsp;&nbsp;
+                <span style="font-weight: 580">Male</span><input type="radio" name="gender" value="male" id="male" disabled='true' />
+                <span style="font-weight: 580">Female</span><input type="radio" name="gender" value="female" id="female" disabled='true' />
+                <br><br>
+                
+                <span id="profilepic" style="margin-left: 62px; display: none">Profile image: </span><input type="file" id="image" accept="image/*" onchange="changeProfilePicture()" style="display: none"/>
+                <br><br>
+
+                <span style="margin-left: -24px">Email: </span> <input type="email" id="email" disabled='true' class="ipform"/>
+                <br><br>
+
+                <span style="margin-left: -54px">Password: </span> <input type="password" id="password" disabled='true' class="ipform"/>
+                <br><br>
+        
+                
+        
+                <input type="button" value='Edit' onclick="edit()" class="button"/>
+                &nbsp;&nbsp;
+                <input type="button" value='Save' id="save" onclick="update()" style="display: none" class="button"/>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

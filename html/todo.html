@@ -1,0 +1,70 @@
+<html>
+	<head>    
+        <title>Todo</title>
+        <link href="https://fonts.googleapis.com/css?family=Allura|Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/reset.css">	
+        <link rel="stylesheet" href="../css/todo.css">
+        <script src="../js/todo.js"></script>
+	</head>
+
+	<body onload="fetchemail()">
+            <header>
+                <a href="home.html" class="home"><h6>Systemize</h6></a>
+                <input type="button" value='Log Out' id="logout" onclick="out()" class="button"/>
+                <input type="button" value='My Profile' id="profile" onclick="location.assign('profile.html')" class="button"/>        
+
+                <div class="clearfix"></div>
+            </header>
+    
+            <main>
+                <div class="logincontainer">
+                    <div id="form">
+                        <input type="button" value="Create" class="button" onclick="location.assign('createtodo.html')">
+                        &nbsp;&nbsp;
+                        <input type="button" value='Edit' onclick="edit()" id="edit" class="button"/>
+                        &nbsp;&nbsp;
+                        <input type="button" value='Save' id="save" onclick="update()" style="display: none" class="button"/>
+                        &nbsp;&nbsp;
+                        <input type="button" value='Mark Done' onclick="done()" id="done" class="button"/>
+                        &nbsp;&nbsp;
+                        <input type="button" value='Delete' onclick="deletetodo()" id="delete" class="button"/>
+                    </div>
+                </div>
+
+                <div class="logincontainer" style="margin-top: 5px">
+                    <div id="form">
+                        <span id="textfilter">Filter:</span>
+                        <select id="filter" onchange="filter()" class="button" style="color: black">
+                            <option value="">--</option>
+                            <option value="drange">Date Range</option>
+                            <option value="done">Done</option>
+                            <option value="pending">Pending</option>
+                            <option value="rfilter">Remove Filter</option>
+                        </select>
+                        &nbsp;&nbsp;
+                        <input type="date" id="fromdate" style="display: none" class="button">
+                        &nbsp;&nbsp;
+                        <input type="date" id="todate" style="display: none" class="button">
+                        &nbsp;&nbsp;
+                        <input type="button" id="search" value="Search" onclick="datefilter()" style="display: none" class="button">
+                    </div>
+                </div>
+
+                <div id="tablehead">
+                    <br>   
+                    <span class="titles" style="margin-left:56px">Title</span>
+                    <span class="titles" style="margin-left:100px">Description</span>
+                    <span class="titles" style="margin-left:60px">Start</span>
+                    <span class="titles" style="margin-left:74px">Due</span>
+                    <span class="titles" style="margin-left:55px">Reminder</span>
+                    <span class="titles" style="margin-left:20px">Status</span>
+                    <span class="titles" style="margin-left:20px">Category</span>
+                    <br> 
+                </div>
+
+                <div id="divid">
+                       
+                </div>
+            </main>
+	</body>
+</html>

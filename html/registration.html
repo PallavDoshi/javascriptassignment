@@ -1,0 +1,52 @@
+<html>
+	<head>
+        <title>Register</title>
+        
+        <link href="https://fonts.googleapis.com/css?family=Allura|Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/reset.css">	
+        <link rel="stylesheet" href="../css/registration.css">	
+        <script src="../js/registration.js"></script>
+	</head>
+
+	<body>
+            <header>
+                <a href="home.html" class="home"><h6>Systemize</h6></a>
+            </header>
+    
+            <main>
+                <div class="logincontainer">
+                    <form>
+                        <img id="dispimage" src="../images/dp.jpg" alt="Profile Pic" height="150" width="150">
+                        <br><br>
+                
+                        <input type="text" id="fname" placeholder="First name" class="ipform"/>
+                        &nbsp;&nbsp;      
+                        <input type="text" id="sname" placeholder="Last name" class="ipform"/>
+                        <br><br>
+
+                        <input type="text" id="address" class="ipform" placeholder="Address" style="width: 515px"/>
+                        <br><br>
+
+                        <span>Gender:</span>&nbsp;&nbsp;
+                        <span style="font-weight: 580">Male </span><input type="radio" name="gender" value="male" />
+                        &nbsp;&nbsp;
+                        <span style="font-weight: 580">Female </span><input type="radio" name="gender" value="female" />
+                        &nbsp; <span id="gendererror">Please select your gender!</span>
+                        <br><br>
+
+                        <span style="margin-left: 89px">Profile image: </span><input type="file" id="image" accept="image/*" onchange="changeProfilePicture()"/>
+                        <br><br>
+
+                        <input type="email" id="email" placeholder="E-mail" class="ipform" />
+                        <br><br>
+                        
+                        <input type="password" id="password" class="ipform" placeholder="Password"/>
+                        <br><br>
+                
+                        <input type="button" value="Register" onclick="register()" class="button"/>
+                        <br><br>
+                    </form>
+                </div>
+            </main>
+	</body>
+</html>

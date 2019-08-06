@@ -27,37 +27,37 @@ function isnull(title,description,startdate,enddate,reminderdate,category,flag)
 {
     if(title==='')
     {
-        alert('title cannot be blank');
+        alert('Please enter a Title!');
         flag++;
     }
 
     if(description==='')
     {
-        alert('description cannot be blank');
+        alert('Please enter a Description!');
         flag++;
     }
     
     if(startdate==='')
     {
-        alert('startdate cannot be blank');
+        alert('Please select a Start Date!');
         flag++;
     }
 
     if(enddate==='')
     {
-        alert('enddate cannot be blank');
+        alert('Please select a Due Date!');
         flag++;
     }
     
     if(reminderdate==='')
     {
-        alert('reminderdate cannot be blank');
+        alert('Please select a reminder date!');
         flag++;
     }
     
     if(category==null)
     {
-        alert('Please select a category');
+        alert('Please select a Category!');
         flag++;
     }
     
@@ -70,19 +70,19 @@ function datevalidate(startdate,enddate,reminderdate,flag)
 
     if(startdate<today)
     {
-        alert('Date dekh na aaj ki pehle');
+        alert('The start date cannot be before today! Select a different date!');
         flag++;
     }
     
     if(enddate<startdate)
     {
-        alert('Are you a time traveler?');
+        alert('Are you a time traveler? The due date cannot be before the start date...');
         flag++;
     }
 
     if(reminderdate<startdate || reminderdate>enddate)
     {
-        alert('You sure that\'s the reminder you want? Because I\'m not');
+        alert('You sure that\'s the reminder you want? Because I\'m not! Select a reminder date between the start and due date!');
         flag++;
     }
 
@@ -119,7 +119,7 @@ function datevalidateupdate(startdate,enddate,reminderdate,flag)
 
 function store(email,title,description,startdate,enddate,reminderdate,category)
 {
-    let status = 'pending';
+    let status = 'Pending';
 
     let codeObject =
     {   
@@ -152,7 +152,6 @@ function fetchemail()
         {
             if(email===codeArray[i].email)
             {
-                /* var ivalue = i; */
                 display(codeArray,i);
             }
         }    
@@ -166,12 +165,17 @@ function display(codeArray,ivalue)
     disptitle.value=codeArray[ivalue].title;
     disptitle.id = 'disptitleid'+ivalue;
     document.getElementById('disptitleid'+ivalue).disabled = true;
+    disptitle.style.height = '40px';
+    disptitle.style.borderRadius = '4px';
     
     let dispdescription = document.createElement("input");
     (document.getElementById('divid')).appendChild(dispdescription);
     dispdescription.value=codeArray[ivalue].description;
     dispdescription.id = 'dispdescriptionid'+ivalue;
     document.getElementById('dispdescriptionid'+ivalue).disabled = true;
+    dispdescription.style.height = '40px';
+    dispdescription.style.borderRadius = '4px';
+    dispdescription.style.marginLeft = '1px';
 
     let dispstartdate = document.createElement("input");
     dispstartdate.setAttribute("type", "date");
@@ -179,6 +183,9 @@ function display(codeArray,ivalue)
     dispstartdate.value=codeArray[ivalue].startdate;
     dispstartdate.id = 'dispstartdateid'+ivalue;
     document.getElementById('dispstartdateid'+ivalue).disabled = true;
+    dispstartdate.style.height = '40px';
+    dispstartdate.style.borderRadius = '4px';
+    dispstartdate.style.marginLeft = '1px';
 
     let dispenddate = document.createElement("input");
     dispenddate.setAttribute("type", "date");
@@ -186,6 +193,9 @@ function display(codeArray,ivalue)
     dispenddate.value=codeArray[ivalue].enddate;
     dispenddate.id = 'dispenddateid'+ivalue;
     document.getElementById('dispenddateid'+ivalue).disabled = true;
+    dispenddate.style.height = '40px';
+    dispenddate.style.borderRadius = '4px';
+    dispenddate.style.marginLeft = '1px';
 
     let dispreminderdate = document.createElement("input");
     dispreminderdate.setAttribute("type", "date");
@@ -193,6 +203,19 @@ function display(codeArray,ivalue)
     dispreminderdate.value=codeArray[ivalue].reminderdate;
     dispreminderdate.id = 'dispreminderdateid'+ivalue;
     document.getElementById('dispreminderdateid'+ivalue).disabled = true;
+    dispreminderdate.style.height = '40px';
+    dispreminderdate.style.borderRadius = '4px';
+    dispreminderdate.style.marginLeft = '1px';
+
+    let dispstatus = document.createElement("input");
+    (document.getElementById('divid')).appendChild(dispstatus);
+    dispstatus.value=codeArray[ivalue].status;
+    dispstatus.id = 'dispstatusid'+ivalue;
+    document.getElementById('dispstatusid'+ivalue).disabled = true;
+    dispstatus.style.height = '40px';
+    dispstatus.style.width = '120px';
+    dispstatus.style.borderRadius = '4px';
+    dispstatus.style.marginLeft = '1px';
 
     let dispcategory = document.createElement("select");
     var abcd = "<select><option value='work'>Work</option><option value='home'>Home</option><option value='personal'>Personal</option></select>";
@@ -201,18 +224,17 @@ function display(codeArray,ivalue)
     dispcategory.value=codeArray[ivalue].category;
     dispcategory.id='dispcategoryid'+ivalue;
     document.getElementById('dispcategoryid'+ivalue).disabled = true;
-
-    let dispstatus = document.createElement("input");
-    (document.getElementById('divid')).appendChild(dispstatus);
-    dispstatus.value=codeArray[ivalue].status;
-    dispstatus.id = 'dispstatusid'+ivalue;
-    document.getElementById('dispstatusid'+ivalue).disabled = true;
-
+    dispcategory.style.height = '37px';
+    dispcategory.style.borderRadius = '4px';
+    dispcategory.style.marginLeft = '1px';
+    
     let checked = document.createElement("input");
     checked.setAttribute("type", "checkbox");
     (document.getElementById('divid')).appendChild(checked);
     checked.value = codeArray[ivalue].id;
     checked.id = 'checkedid'+ivalue;
+    checked.style.marginLeft = '10px';
+    checked.style.marginRight = '10px';
 
     let p = document.createElement("p");
     (document.getElementById('divid')).appendChild(p);
@@ -233,12 +255,12 @@ function edit()
 
     if(flag==0)
     {
-        alert('Select something first');
+        alert('Select something to edit!');
     }
 
     if(flag>1)
     {
-        alert('Try editing one item at a time');
+        alert('Try editing one item at a time!');
     }
 
     if(flag==1)
@@ -310,7 +332,7 @@ function done()
     {
         if((document.getElementById('checkedid'+i)).checked==true)
         {
-            codeArray[i].status='done';
+            codeArray[i].status='Done';
             localStorage.setItem('todo',JSON.stringify(codeArray));
             flag++;
             location.assign('todo.html');
@@ -319,7 +341,7 @@ function done()
 
     if(flag==0)
     {
-        alert('Select something first');
+        alert('Select something to mark as done!');
     }
 }
 
@@ -340,16 +362,25 @@ function deletetodo()
 
     if(flag==0)
     {
-        alert('Select something first');
+        alert('Select something to delete!');
     }
 }
 
 function filter()
 {
     let filter = document.getElementById('filter').value;
+    document.getElementById('edit').style.display = 'none';
+    document.getElementById('done').style.display = 'none';
+    document.getElementById('delete').style.display = 'none';
     
     if(filter=='done')
     {       
+        document.getElementById('fromdate').style.display = 'none';
+        document.getElementById('todate').style.display = 'none';
+        document.getElementById('search').style.display = 'none';
+
+        flag = 0;
+
         var a=document.getElementById("divid");
 	    var deleteChild=a.lastElementChild;
         
@@ -363,14 +394,36 @@ function filter()
         {
             if(email===codeArray[i].email)
             {
-                if(codeArray[i].status=='done')
+                if(codeArray[i].status=='Done')
+                {
                     display(codeArray,i);
+                    flag++;
+                }
             }
+        }
+
+        if(flag==0)
+        {
+            var norecord = document.createElement("p");
+            var value = document.createTextNode("No Record Found");
+            norecord.appendChild(value);
+            var disp = document.getElementById("divid");
+            disp.appendChild(norecord);
+            norecord.style.fontSize = '43px';
+            norecord.style.fontWeight = '550';
+            norecord.style.textAlign = 'center';
+            norecord.style.marginTop = '10px';
         }
     }
 
     if(filter=='pending')
     {       
+        document.getElementById('fromdate').style.display = 'none';
+        document.getElementById('todate').style.display = 'none';
+        document.getElementById('search').style.display = 'none';
+
+        flag = 0;
+
         var a=document.getElementById("divid");
 	    var deleteChild=a.lastElementChild;
         
@@ -384,9 +437,25 @@ function filter()
         {
             if(email===codeArray[i].email)
             {
-                if(codeArray[i].status=='pending')
+                if(codeArray[i].status=='Pending')
+                {
                     display(codeArray,i);
+                    flag++;
+                }
             }
+        }
+
+        if(flag==0)
+        {
+            var norecord = document.createElement("p");
+            var value = document.createTextNode("No Record Found");
+            norecord.appendChild(value);
+            var disp = document.getElementById("divid");
+            disp.appendChild(norecord);
+            norecord.style.fontSize = '43px';
+            norecord.style.fontWeight = '550';
+            norecord.style.textAlign = 'center';
+            norecord.style.marginTop = '10px';
         }
     }
 
@@ -416,6 +485,8 @@ function datefilter()
 
     else
     {
+        flag = 0;
+
         var a=document.getElementById("divid");
 	    var deleteChild=a.lastElementChild;
         
@@ -430,8 +501,30 @@ function datefilter()
             if(email===codeArray[i].email)
             {
                 if(fromdate < codeArray[i].enddate && codeArray[i].enddate < todate)
+                {
                     display(codeArray,i);
+                    flag++
+                }
             }
         }
+
+        if(flag==0)
+        {
+            var norecord = document.createElement("p");
+            var value = document.createTextNode("No Record Found");
+            norecord.appendChild(value);
+            var disp = document.getElementById("divid");
+            disp.appendChild(norecord);
+            norecord.style.fontSize = '43px';
+            norecord.style.fontWeight = '550';
+            norecord.style.textAlign = 'center';
+            norecord.style.marginTop = '10px';
+        }
     }
+}
+
+function out()
+{
+    location.assign('login.html');
+    sessionStorage.clear();
 }

@@ -1,0 +1,112 @@
+body
+{
+    background-image:url('../images/wood2.2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90%;
+    font-family: 'Sorts Mill Goudy';   
+}
+
+#logout,#profile
+{
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#textfilter
+{
+    float: left;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+h6
+{
+    color: #f8ede2;
+    text-shadow: 2px 5px black;	
+    font-weight: 700;
+    font-family: 'Sorts Mill Goudy';
+    font-size: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.home
+{
+    text-decoration: none;
+}
+
+.logincontainer
+{
+    background-color: rgba(225, 225, 225, 0.5);
+    display: inline-block;    
+    margin-left: 20%;
+    margin-top: 4%;
+    border-radius: 4px;
+    width: 800px;
+}
+
+#divid, #tablehead
+{
+    background-color: rgba(225, 225, 225, 0.5);
+    display: inline-block;    
+    margin-left: 14%;
+    margin-top: 1%;
+    border-radius: 4px;
+}
+
+.ipform
+{
+    border: solid 1px white;
+    height: 40px;
+    width: 250px;
+    border-radius: 4px;
+    /* margin-bottom: 20px; */
+}
+
+#form
+{
+    text-align: center;
+    padding: 14px;
+}
+
+.button
+{
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    height: 40px;
+    width: 125px;
+    transition: all 0.2s;
+}
+
+.button:hover  
+{  
+  background-color:Transparent;
+  border: solid;
+  /* color: #f4511e; */
+}
+
+.createtodo
+{
+    font-size: 20px;
+    font-weight: 600;
+    /* float: left; */
+}
+
+#filter
+{
+    margin-left: -66px;
+}
+
+.titles
+{
+    font-size: 30px;
+    font-weight: 600;
+    text-decoration: underline;
+}

@@ -1,0 +1,50 @@
+<html>
+	<head>    
+        <title>Create</title>
+        <link href="https://fonts.googleapis.com/css?family=Allura|Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/reset.css">	
+        <link rel="stylesheet" href="../css/todo.css">
+        <script src="../js/todo.js"></script>
+	</head>
+
+	<body>
+            <header>
+                <a href="home.html" class="home"><h6>Systemize</h6></a>
+                <input type="button" value='Log Out' id="logout" onclick="out()" class="button"/>
+                <input type="button" value='My Profile' id="profile" onclick="location.assign('profile.html')" class="button"/>        
+
+                <div class="clearfix"></div>
+            </header>
+    
+            <main>
+                <div class="logincontainer">
+                    <div id="form">
+                        <span class="createtodo">Title:</span> <input type="text" id="title" class="ipform" style="width: 300px">
+                        <br><br>
+                        <span class="createtodo">Description:</span> <input type="text" id="description" class="ipform" style="width: 600px">
+                        <br><br>
+                        <span class="createtodo">Start Date:</span> <input type="date" id="startdate" class="ipform" style="width: 150px">
+                        <br><br>
+                        <span class="createtodo" style="margin-left: 4px">Due Date:</span> <input type="date" id="enddate" class="ipform" style="width: 150px">
+                        <br><br>
+                        <span class="createtodo" style="margin-left: -40px">Reminder Date:</span>  <input type="date" id="reminderdate" class="ipform" style="width: 150px">
+                        <br><br>
+                        <span class="createtodo">Category:</span> &nbsp;&nbsp;
+                        <select id="category" class="ipform">
+                            <option value="work">Work</option>
+                            <option value="home">Home</option>
+                            <option value="personal">Personal</option>
+                        </select>
+                        <br><br>
+                        <input type="button" value="Create" id="submit" onclick="todosave()" class="button">
+                    </div>
+                </div>
+
+                <div class="logincontainer" style="margin-top: 5px">
+                    <div id="form">
+                        <input type="button" value="View my To Do" class="button" onclick="location.assign('todo.html')">
+                    </div>
+                </div>
+            </main>
+	</body>
+</html>
