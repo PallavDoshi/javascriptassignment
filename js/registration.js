@@ -165,6 +165,7 @@ function storeUserData(image, email, firstName, lastName, address, password, gen
     userDataArray.push(userDataObject);
     localStorage.setItem('users', JSON.stringify(userDataArray));
 
+    sessionStorage.setItem('registered', 1);
     location.assign('login.html');
 }
 
@@ -214,4 +215,14 @@ function updateUserData() {
 
         document.getElementById('save').style.display = 'none';
     }
+}
+
+function registeredSuccessfully() {
+    if (sessionStorage.getItem('registered') == 1)
+        document.getElementById('displayRegisteredSuccessfully').style.display = 'inline-block';
+
+    setTimeout(() => {
+        sessionStorage.setItem('registered', 0);
+        document.getElementById('displayRegisteredSuccessfully').style.display = 'none';
+    }, 2500);
 }
