@@ -1,0 +1,57 @@
+body {
+    background-image: url('../images/wood2.2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90%;
+    font-family: 'Sorts Mill Goudy';
+}
+
+h6 {
+    color: #f8ede2;
+    text-shadow: 2px 5px black;
+    font-weight: 700;
+    font-family: 'Sorts Mill Goudy';
+    font-size: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.home {
+    text-decoration: none;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.button {
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.button:hover {
+    background-color: Transparent;
+    border: solid;
+    /* color: #f4511e; */
+}
+
+.formElement {
+    border: solid 1px white;
+    height: 40px;
+    width: 250px;
+    border-radius: 4px;
+}
+
+#logOut,
+#viewProfilePage,
+#viewMyToDo {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}

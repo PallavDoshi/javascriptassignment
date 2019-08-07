@@ -1,30 +1,35 @@
 <html>
-	<head>
+
+<head>
     <title>Login</title>
-    
-	<link href="https://fonts.googleapis.com/css?family=Allura|Sorts+Mill+Goudy&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="../css/reset.css">	
-    <link rel="stylesheet" href="../css/login.css">	
+
+    <link href="https://fonts.googleapis.com/css?family=Allura|Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/login.css">
     <script src="../js/login.js"></script>
-	</head>
+</head>
 
-	<body>
-        <header>
-            <a href="home.html" class="home"><h6>Systemize</h6></a>
-        </header>
+<body>
+    <header>
+        <a href="home.html" class="home">
+            <h6>Systemize</h6>
+        </a>
+    </header>
 
-        <main>
-            <div class="logincontainer">
-                <form>
-                    <input type="email" id="email" placeholder="E-mail" class="ipform"/>
-                    <br><br>
-                    <input type="password" id="password" placeholder="Password" class="ipform"/>
-                    <br><br>
-                    <input type="button" value="Login" onclick="login(event)" class="button"/>
-                    <br><br>
-                    <a href="registration.html" class="register">Not a member? Sign In</a>
-                </form>
-            </div>
-        </main>
-	</body>
+    <main>
+        <div class="loginFormBackground">
+            <form>
+                <input type="email" id="email" placeholder="E-mail" class="formElement" />
+                <br><br>
+                <input type="password" id="password" placeholder="Password" class="formElement" />
+                <br><br>
+                <input type="button" value="Login" onclick="login(event)" class="button" />
+                <br><br>
+                <a href="registration.html" class="registrationLink">Not a member? Sign In</a>
+            </form>
+        </div>
+    </main>
+</body>
+
 </html>

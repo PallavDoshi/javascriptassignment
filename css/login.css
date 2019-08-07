@@ -1,78 +1,27 @@
-body
-{
-    background-image:url('../images/wood2.2.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 90%;
-    font-family: 'Sorts Mill Goudy';   
-}
-
-
-h6
-{
-    color: #f8ede2;
-    text-shadow: 2px 5px black;	
-    font-weight: 700;
-    font-family: 'Sorts Mill Goudy';
-    font-size: 50px;
-    margin-left: 10px;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-.home
-{
-    text-decoration: none;
-}
-
-.logincontainer
-{
+.loginFormBackground {
     background-color: rgba(225, 225, 225, 0.5);
-    display: inline-block;    
+    display: inline-block;
     margin-left: 37%;
     margin-top: 10%;
     border-radius: 4px;
 }
 
-form
-{
+form {
     text-align: center;
     padding: 50px;
-    
 }
 
-.ipform
-{
-    border: solid 1px white;
-    height: 40px;
-    width: 250px;
-    border-radius: 4px;
+.formElement {
     margin-bottom: 20px;
 }
 
-.button
-{
-    border-radius: 4px;
-    background-color: #f4511e;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
+.button {
     height: 40px;
     width: 125px;
     margin-bottom: 20px;
-    transition: all 0.2s;
 }
 
-.button:hover  
-{  
-  background-color:Transparent;
-  border: solid;
-  /* color: #f4511e; */
-}
-
-.register
-{
+.registrationLink {
     text-decoration: none;
     color: black;
     font-weight: 700;
@@ -80,15 +29,6 @@ form
     font-size: 20px;
 }
 
-.register:hover  
-{  
-  color: #f4511e;   
-}
-
-.isempty
-{
-    color: red;
-    font-weight: 700;
-    /* text-shadow: -1px 2px #626262; */
-    font-size: 20px;
+.registrationLink:hover {
+    color: #f4511e;
 }

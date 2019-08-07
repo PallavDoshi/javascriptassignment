@@ -1,71 +1,64 @@
-function register(event)
-{ 
-    document.getElementById('fname').style.border = 'none';
-    document.getElementById('sname').style.border = 'none';
+function register(event) {
+    document.getElementById('firstName').style.border = 'none';
+    document.getElementById('lastName').style.border = 'none';
     document.getElementById('address').style.border = 'none';
     document.getElementById('password').style.border = 'none';
     document.getElementById('email').style.border = 'none';
-    document.getElementById('gendererror').style.display = 'none';
+    document.getElementById('genderNotSelected').style.display = 'none';
 
     var flag = 0;
     let email = document.getElementById('email').value;
-    let fname = document.getElementById('fname').value; 
-    let sname = document.getElementById('sname').value;
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
     let address = document.getElementById('address').value;
     let password = document.getElementById('password').value;
     let gender = document.querySelector('input[name="gender"]:checked');
-    if(gender!=null)
-        gender=document.querySelector('input[name="gender"]:checked').value;
+    if (gender != null)
+        gender = document.querySelector('input[name="gender"]:checked').value;
 
-    
-    let image = sessionStorage.getItem('tempimgdata');
 
-    
+    let image = sessionStorage.getItem('tempImageData');
 
-    if(flag==0)
-        flag=exists(email,flag);  
-        
-    if(flag==0)
-        flag=isnull(image,email,fname,sname,address,password,gender,flag);
 
-    if(flag==0)
-        flag=emailvalidation(email,flag);
 
-    if(flag==0)
-        flag=validation(fname,sname,password,flag);
+    if (flag == 0)
+        flag = emailExists(email, flag);
 
-    if(flag===0)
-        store(image,email,fname,sname,address,password,gender);
+    if (flag == 0)
+        flag = isUnfilled(image, email, firstName, lastName, address, password, gender, flag);
+
+    if (flag == 0)
+        flag = userEmailValidation(email, flag);
+
+    if (flag == 0)
+        flag = userDataValidation(firstName, lastName, password, flag);
+
+    if (flag === 0)
+        storeUserData(image, email, firstName, lastName, address, password, gender);
 }
 
-function changeProfilePicture()
-{
-    var Image =document.getElementById("image").files[0];
+function changeProfilePicture() {
+    var Image = document.getElementById("image").files[0];
 
-    var reader = new FileReader();
-    reader.readAsDataURL(Image);
-        
-    reader.onload = function () 
-    {
-        var imgdata = reader.result;
-        sessionStorage.setItem("tempimgdata",imgdata);
-        document.getElementById("dispimage").src=sessionStorage.tempimgdata;
+    var imageReader = new FileReader();
+    imageReader.readAsDataURL(Image);
+
+    imageReader.onload = function() {
+        var imgdata = imageReader.result;
+        sessionStorage.setItem("tempImageData", imgdata);
+        document.getElementById("displayProfileImage").src = sessionStorage.tempImageData;
     };
 
-    reader.onerror = function (error) 
-    {};
+    imageReader.onerror = function(error) {};
 
 }
 
 
-function exists(email,flag)
-{
-    var codeArray = JSON.parse(localStorage.getItem('users')) || [];
+function emailExists(email, flag) {
+    var userDataArray = JSON.parse(localStorage.getItem('users')) || [];
 
-    for(i=0;i<codeArray.length;i++)
-    {
-        if(email===codeArray[i].email)
-        {
+    for (i = 0; i < userDataArray.length; i++) {
+        if (email === userDataArray[i].email) {
             alert('The email already exists!');
             flag++;
             break;
@@ -76,65 +69,56 @@ function exists(email,flag)
 }
 
 
-function isnull(image,email,fname,sname,address,password,gender,flag)
-{
+function isUnfilled(image, email, firstName, lastName, address, password, gender, flag) {
     //flag = 0;
 
-    if(email==='')
-    {
+    if (email === '') {
         document.getElementById('email').placeholder = 'Please enter an Email';
         document.getElementById('email').style.border = 'solid 2px rgba(244, 81, 30)';
 
         flag++;
     }
 
-    if(fname==='')
-    {
-        document.getElementById('fname').placeholder = 'Please enter your first name';
-        document.getElementById('fname').style.border = 'solid 2px rgba(244, 81, 30)';
-
-        flag++;
-    }
-    
-    if(sname==='')
-    {
-        document.getElementById('sname').placeholder = 'Please enter your last name';
-        document.getElementById('sname').style.border = 'solid 2px rgba(244, 81, 30)';
+    if (firstName === '') {
+        document.getElementById('firstName').placeholder = 'Please enter your first name';
+        document.getElementById('firstName').style.border = 'solid 2px rgba(244, 81, 30)';
 
         flag++;
     }
 
-    if(address==='')
-    {
+    if (lastName === '') {
+        document.getElementById('lastName').placeholder = 'Please enter your last name';
+        document.getElementById('lastName').style.border = 'solid 2px rgba(244, 81, 30)';
+
+        flag++;
+    }
+
+    if (address === '') {
         document.getElementById('address').placeholder = 'Please enter your address';
         document.getElementById('address').style.border = 'solid 2px rgba(244, 81, 30)';
 
         flag++;
     }
-    
-    if(password==='')
-    {
+
+    if (password === '') {
         document.getElementById('password').placeholder = 'Please enter your password';
         document.getElementById('password').style.border = 'solid 2px rgba(244, 81, 30)';
 
         flag++;
     }
 
-    if(gender==null)
-    {
-        document.getElementById('gendererror').style.display = 'inline-block';
+    if (gender == null) {
+        document.getElementById('genderNotSelected').style.display = 'inline-block';
         flag++;
     }
-    
+
     return flag;
 }
 
-function emailvalidation(email,flag)
-{
-    let emailre = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+function userEmailValidation(email, flag) {
+    let emailRegularExpression = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    if(emailre.test(email)==false)
-    {
+    if (emailRegularExpression.test(email) == false) {
         alert('Please enter a valid email');
         flag++;
     }
@@ -142,25 +126,21 @@ function emailvalidation(email,flag)
     return flag;
 }
 
-function validation(fname,sname,password,flag)
-{
-    let passwordre = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-    let namere = /^[A-Za-z]+$/;
+function userDataValidation(firstName, lastName, password, flag) {
+    let passwordRegularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    let nameRegularExpression = /^[A-Za-z]+$/;
 
-    if(passwordre.test(password)==false)
-    {
-        alert('Please enter a valid password');
+    if (passwordRegularExpression.test(password) == false) {
+        alert('Please enter a password of length between 8 and 15 characters with atleast one Uppercase, one Lowercase character, one Digit and atleast one special character!');
         flag++;
     }
 
-    if(namere.test(fname)===false)
-    {
+    if (nameRegularExpression.test(firstName) === false) {
         alert('Please enter a valid first name');
         flag++;
     }
 
-    if(namere.test(sname)==false)
-    {
+    if (nameRegularExpression.test(lastName) == false) {
         alert('Please enter a valid last name');
         flag++;
     }
@@ -169,74 +149,69 @@ function validation(fname,sname,password,flag)
 }
 
 
-function store(image,email,fname,sname,address,password,gender)
-{
-    let codeObject =
-    {   
+function storeUserData(image, email, firstName, lastName, address, password, gender) {
+    let userDataObject = {
         /* id: new Date().getTime(), */
         email,
-        fname,
-        sname,
+        firstName,
+        lastName,
         address,
         password,
         gender,
         image
     }
 
-    let codeArray = JSON.parse(localStorage.getItem('users')) || [];
-    codeArray.push(codeObject);
-    localStorage.setItem('users',JSON.stringify(codeArray));
+    let userDataArray = JSON.parse(localStorage.getItem('users')) || [];
+    userDataArray.push(userDataObject);
+    localStorage.setItem('users', JSON.stringify(userDataArray));
 
     location.assign('login.html');
 }
 
-function update()
-{
+function updateUserData() {
     var ivalue = sessionStorage.getItem('ivalue');
     var flag = 0;
-    
-    let email = document.getElementById('email').value; 
-    let fname = document.getElementById('fname').value; 
-    let sname = document.getElementById('sname').value;
+
+    let email = document.getElementById('email').value;
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
     let address = document.getElementById('address').value;
     let password = document.getElementById('password').value;
-    let image = sessionStorage.getItem('tempimgdata');
+    let image = sessionStorage.getItem('tempImageData');
     let gender = document.querySelector('input[name="gender"]:checked');
-    if(gender!=null)
-        gender=document.querySelector('input[name="gender"]:checked').value;
+    if (gender != null)
+        gender = document.querySelector('input[name="gender"]:checked').value;
 
-    if(flag==0)
-        flag=isnull(image,email,fname,sname,address,password,gender,flag);
+    if (flag == 0)
+        flag = isUnfilled(image, email, firstName, lastName, address, password, gender, flag);
 
-    if(flag==0)
-        flag=validation(fname,sname,password,flag);
+    if (flag == 0)
+        flag = userDataValidation(firstName, lastName, password, flag);
 
-    if(flag==0)
-    {
-        let codeObject =
-        {   
+    if (flag == 0) {
+        let userDataObject = {
             image,
             email,
-            fname,
-            sname,
+            firstName,
+            lastName,
             address,
             password,
             gender
         }
-        let codeArray = JSON.parse(localStorage.getItem('users')) || [];
-        codeArray[ivalue]=codeObject;
-        localStorage.setItem('users',JSON.stringify(codeArray));
+        let userDataArray = JSON.parse(localStorage.getItem('users')) || [];
+        userDataArray[ivalue] = userDataObject;
+        localStorage.setItem('users', JSON.stringify(userDataArray));
 
-        document.getElementById('fname').disabled = true;
-        document.getElementById('sname').disabled = true;
+        document.getElementById('firstName').disabled = true;
+        document.getElementById('lastName').disabled = true;
         document.getElementById('male').disabled = true;
         document.getElementById('female').disabled = true;
         document.getElementById('address').disabled = true;
         document.getElementById('password').disabled = true;
         document.getElementById('image').disabled = true;
-        document.getElementById('profilepic').style.display = 'none';
+        document.getElementById('profilePicture').style.display = 'none';
         document.getElementById('image').style.display = 'none';
 
-        document.getElementById('save').style.display='none';
+        document.getElementById('save').style.display = 'none';
     }
 }
