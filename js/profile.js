@@ -2,10 +2,12 @@ function viewProfile() {
     var email = sessionStorage.getItem('email');
     var ivalue = sessionStorage.getItem('ivalue');
 
-    if (email == null)
-        location.assign('login.html');
+    (function() {
+        if (email == null)
+            location.assign('login.html');
+    })();
 
-    else if ((JSON.parse(localStorage.getItem('users')))[ivalue].email === email) {
+    if ((JSON.parse(localStorage.getItem('users')))[ivalue].email === email) {
         (document.getElementById('email')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].email;
         (document.getElementById('firstName')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].firstName;
         (document.getElementById('lastName')).value = (JSON.parse(localStorage.getItem('users')))[ivalue].lastName;

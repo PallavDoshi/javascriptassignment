@@ -1,4 +1,10 @@
 var email = sessionStorage.getItem('email');
+
+(function() {
+    if (email == null)
+        location.assign('login.html');
+})();
+
 var codeArray = JSON.parse(localStorage.getItem('todo')) || [];
 var updateivalue;
 
@@ -123,16 +129,12 @@ function store(email, title, description, startdate, enddate, reminderdate, cate
 }
 
 function fetchUserEmail() {
-    if (email == null)
-        location.assign('login.html');
-
-    else {
-        for (i = 0; i < codeArray.length; i++) {
-            if (email === codeArray[i].email) {
-                display(codeArray, i);
-            }
+    for (i = 0; i < codeArray.length; i++) {
+        if (email === codeArray[i].email) {
+            display(codeArray, i);
         }
     }
+
 }
 
 function display(codeArray, ivalue) {
