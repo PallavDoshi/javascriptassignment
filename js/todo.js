@@ -5,342 +5,371 @@ var email = sessionStorage.getItem('email');
         location.assign('login.html');
 })();
 
-var codeArray = JSON.parse(localStorage.getItem('todo')) || [];
-var updateivalue;
+var userDataArray = JSON.parse(localStorage.getItem('todo')) || [];
+var globalIValue;
 
-function todosave() {
+function saveToDo() {
     var flag = 0;
+
+    document.getElementById('displayErrorMessageText').innerHTML = '';
 
     let title = document.getElementById('title').value;
     let description = document.getElementById('description').value;
-    let startdate = document.getElementById('startdate').value;
-    let enddate = document.getElementById('enddate').value;
-    let reminderdate = document.getElementById('reminderdate').value;
-    let category = (document.getElementById('category')).value;
+    let startDate = document.getElementById('startDate').value;
+    let endDate = document.getElementById('endDate').value;
+    let reminderDate = document.getElementById('reminderDate').value;
+    let toDoCategory = (document.getElementById('toDoCategory')).value;
 
     if (flag == 0)
-        flag = isnull(title, description, startdate, enddate, reminderdate, category, flag);
+        flag = isUnfilled(title, description, startDate, endDate, reminderDate, toDoCategory, flag);
 
     if (flag == 0)
-        flag = datevalidate(startdate, enddate, reminderdate, flag);
+        flag = dateValidation(startDate, endDate, reminderDate, flag);
 
     if (flag == 0)
-        store(email, title, description, startdate, enddate, reminderdate, category);
+        storeToDo(email, title, description, startDate, endDate, reminderDate, toDoCategory);
 }
 
-function isnull(title, description, startdate, enddate, reminderdate, category, flag) {
+function isUnfilled(title, description, startDate, endDate, reminderDate, toDoCategory, flag) {
     if (title === '') {
-        alert('Please enter a Title!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please enter a Title!';
         flag++;
     }
 
     if (description === '') {
-        alert('Please enter a Description!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please enter a Description!';
         flag++;
     }
 
-    if (startdate === '') {
-        alert('Please select a Start Date!');
+    if (startDate === '') {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please select a Start Date!';
         flag++;
     }
 
-    if (enddate === '') {
-        alert('Please select a Due Date!');
+    if (endDate === '') {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please select a Due Date!';
         flag++;
     }
 
-    if (reminderdate === '') {
-        alert('Please select a reminder date!');
+    if (reminderDate === '') {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please select a reminder date!';
         flag++;
     }
 
-    if (category == null) {
-        alert('Please select a Category!');
-        flag++;
-    }
-
-    return flag;
-}
-
-function datevalidate(startdate, enddate, reminderdate, flag) {
-    var today = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-
-    if (startdate < today) {
-        alert('The start date cannot be before today! Select a different date!');
-        flag++;
-    }
-
-    if (enddate < startdate) {
-        alert('Are you a time traveler? The due date cannot be before the start date...');
-        flag++;
-    }
-
-    if (reminderdate < startdate || reminderdate > enddate) {
-        alert('You sure that\'s the reminder you want? Because I\'m not! Select a reminder date between the start and due date!');
+    if (toDoCategory == null) {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please select a Category!';
         flag++;
     }
 
     return flag;
 }
 
-function datevalidateupdate(startdate, enddate, reminderdate, flag) {
+function dateValidation(startDate, endDate, reminderDate, flag) {
     var today = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
 
-    if (startdate < today) {
-        if (startdate < codeArray[updateivalue].startdate) {
-            alert('That start date ain\'t possible');
+    if (startDate < today) {
+        document.getElementById('displayErrorMessageText').innerHTML = 'The start date cannot be before today! Select a different date!';
+        flag++;
+    }
+
+    if (endDate < startDate) {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Are you a time traveler? The due date cannot be before the start date...';
+        flag++;
+    }
+
+    if (reminderDate < startDate || reminderDate > endDate) {
+        document.getElementById('displayErrorMessageText').innerHTML = 'You sure that\'s the reminder you want? Because I\'m not! Select a reminder date between the start and due date!';
+        flag++;
+    }
+
+    return flag;
+}
+
+function dateValidationForUpdatedToDo(startDate, endDate, reminderDate, flag) {
+    var today = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+
+    if (startDate < today) {
+        if (startDate < userDataArray[globalIValue].startDate) {
+            document.getElementById('displayErrorMessageText').innerHTML = 'That start date ain\'t possible';
             flag++;
         }
     }
 
-    if (enddate < startdate) {
-        alert('Are you a time traveler?');
+    if (endDate < startDate) {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Are you a time traveler?';
         flag++;
     }
 
-    if (reminderdate < startdate || reminderdate > enddate) {
-        alert('You sure that\'s the reminder you want? Because I\'m not');
+    if (reminderDate < startDate || reminderDate > endDate) {
+        document.getElementById('displayErrorMessageText').innerHTML = 'You sure that\'s the reminder you want? Because I\'m not';
         flag++;
     }
 
     return flag;
 }
 
-function store(email, title, description, startdate, enddate, reminderdate, category) {
+function storeToDo(email, title, description, startDate, endDate, reminderDate, toDoCategory) {
     let status = 'Pending';
 
-    let codeObject = {
+    let userDataObject = {
         id: new Date().getTime(),
         email,
         title,
         description,
-        startdate,
-        enddate,
-        reminderdate,
-        category,
+        startDate,
+        endDate,
+        reminderDate,
+        toDoCategory,
         status
     }
 
-    let codeArray = JSON.parse(localStorage.getItem('todo')) || [];
-    codeArray.push(codeObject);
-    localStorage.setItem('todo', JSON.stringify(codeArray));
+    let userDataArray = JSON.parse(localStorage.getItem('todo')) || [];
+    userDataArray.push(userDataObject);
+    localStorage.setItem('todo', JSON.stringify(userDataArray));
 
     location.assign('todo.html');
 }
 
 function fetchUserEmail() {
-    for (i = 0; i < codeArray.length; i++) {
-        if (email === codeArray[i].email) {
-            display(codeArray, i);
+    for (i = 0; i < userDataArray.length; i++) {
+        if (email === userDataArray[i].email) {
+            displayToDo(userDataArray, i);
         }
     }
 
 }
 
-function display(codeArray, ivalue) {
-    let disptitle = document.createElement("input");
-    (document.getElementById('divid')).appendChild(disptitle);
-    disptitle.value = codeArray[ivalue].title;
-    disptitle.id = 'disptitleid' + ivalue;
-    document.getElementById('disptitleid' + ivalue).disabled = true;
-    disptitle.style.height = '40px';
-    disptitle.style.borderRadius = '4px';
+function displayToDo(userDataArray, ivalue) {
+    let displayToDoTItle = document.createElement("input");
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoTItle);
+    displayToDoTItle.value = userDataArray[ivalue].title;
+    displayToDoTItle.id = 'displayToDoTItleid' + ivalue;
+    document.getElementById('displayToDoTItleid' + ivalue).disabled = true;
+    displayToDoTItle.style.height = '40px';
+    displayToDoTItle.style.borderRadius = '4px';
 
-    let dispdescription = document.createElement("input");
-    (document.getElementById('divid')).appendChild(dispdescription);
-    dispdescription.value = codeArray[ivalue].description;
-    dispdescription.id = 'dispdescriptionid' + ivalue;
-    document.getElementById('dispdescriptionid' + ivalue).disabled = true;
-    dispdescription.style.height = '40px';
-    dispdescription.style.borderRadius = '4px';
-    dispdescription.style.marginLeft = '1px';
+    let displayToDoDescription = document.createElement("input");
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoDescription);
+    displayToDoDescription.value = userDataArray[ivalue].description;
+    displayToDoDescription.id = 'displayToDoDescriptionid' + ivalue;
+    document.getElementById('displayToDoDescriptionid' + ivalue).disabled = true;
+    displayToDoDescription.style.height = '40px';
+    displayToDoDescription.style.borderRadius = '4px';
+    displayToDoDescription.style.marginLeft = '1px';
 
-    let dispstartdate = document.createElement("input");
-    dispstartdate.setAttribute("type", "date");
-    (document.getElementById('divid')).appendChild(dispstartdate);
-    dispstartdate.value = codeArray[ivalue].startdate;
-    dispstartdate.id = 'dispstartdateid' + ivalue;
-    document.getElementById('dispstartdateid' + ivalue).disabled = true;
-    dispstartdate.style.height = '40px';
-    dispstartdate.style.borderRadius = '4px';
-    dispstartdate.style.marginLeft = '1px';
+    let displayToDoStartDate = document.createElement("input");
+    displayToDoStartDate.setAttribute("type", "date");
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoStartDate);
+    displayToDoStartDate.value = userDataArray[ivalue].startDate;
+    displayToDoStartDate.id = 'displayToDoStartDateid' + ivalue;
+    document.getElementById('displayToDoStartDateid' + ivalue).disabled = true;
+    displayToDoStartDate.style.height = '40px';
+    displayToDoStartDate.style.borderRadius = '4px';
+    displayToDoStartDate.style.marginLeft = '1px';
 
-    let dispenddate = document.createElement("input");
-    dispenddate.setAttribute("type", "date");
-    (document.getElementById('divid')).appendChild(dispenddate);
-    dispenddate.value = codeArray[ivalue].enddate;
-    dispenddate.id = 'dispenddateid' + ivalue;
-    document.getElementById('dispenddateid' + ivalue).disabled = true;
-    dispenddate.style.height = '40px';
-    dispenddate.style.borderRadius = '4px';
-    dispenddate.style.marginLeft = '1px';
+    let displayToDoEndDate = document.createElement("input");
+    displayToDoEndDate.setAttribute("type", "date");
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoEndDate);
+    displayToDoEndDate.value = userDataArray[ivalue].endDate;
+    displayToDoEndDate.id = 'displayToDoEndDateid' + ivalue;
+    document.getElementById('displayToDoEndDateid' + ivalue).disabled = true;
+    displayToDoEndDate.style.height = '40px';
+    displayToDoEndDate.style.borderRadius = '4px';
+    displayToDoEndDate.style.marginLeft = '1px';
 
-    let dispreminderdate = document.createElement("input");
-    dispreminderdate.setAttribute("type", "date");
-    (document.getElementById('divid')).appendChild(dispreminderdate);
-    dispreminderdate.value = codeArray[ivalue].reminderdate;
-    dispreminderdate.id = 'dispreminderdateid' + ivalue;
-    document.getElementById('dispreminderdateid' + ivalue).disabled = true;
-    dispreminderdate.style.height = '40px';
-    dispreminderdate.style.borderRadius = '4px';
-    dispreminderdate.style.marginLeft = '1px';
+    let displayToDoReminderDate = document.createElement("input");
+    displayToDoReminderDate.setAttribute("type", "date");
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoReminderDate);
+    displayToDoReminderDate.value = userDataArray[ivalue].reminderDate;
+    displayToDoReminderDate.id = 'displayToDoReminderDateid' + ivalue;
+    document.getElementById('displayToDoReminderDateid' + ivalue).disabled = true;
+    displayToDoReminderDate.style.height = '40px';
+    displayToDoReminderDate.style.borderRadius = '4px';
+    displayToDoReminderDate.style.marginLeft = '1px';
 
-    let dispstatus = document.createElement("input");
-    (document.getElementById('divid')).appendChild(dispstatus);
-    dispstatus.value = codeArray[ivalue].status;
-    dispstatus.id = 'dispstatusid' + ivalue;
-    document.getElementById('dispstatusid' + ivalue).disabled = true;
-    dispstatus.style.height = '40px';
-    dispstatus.style.width = '120px';
-    dispstatus.style.borderRadius = '4px';
-    dispstatus.style.marginLeft = '1px';
+    let displayToDoStatus = document.createElement("input");
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoStatus);
+    displayToDoStatus.value = userDataArray[ivalue].status;
+    displayToDoStatus.id = 'displayToDoStatusid' + ivalue;
+    document.getElementById('displayToDoStatusid' + ivalue).disabled = true;
+    displayToDoStatus.style.height = '40px';
+    displayToDoStatus.style.width = '120px';
+    displayToDoStatus.style.borderRadius = '4px';
+    displayToDoStatus.style.marginLeft = '1px';
 
-    let dispcategory = document.createElement("select");
+    let displayToDoCategory = document.createElement("select");
     var abcd = "<select><option value='work'>Work</option><option value='home'>Home</option><option value='personal'>Personal</option></select>";
-    dispcategory.innerHTML = abcd;
-    (document.getElementById('divid')).appendChild(dispcategory);
-    dispcategory.value = codeArray[ivalue].category;
-    dispcategory.id = 'dispcategoryid' + ivalue;
-    document.getElementById('dispcategoryid' + ivalue).disabled = true;
-    dispcategory.style.height = '37px';
-    dispcategory.style.borderRadius = '4px';
-    dispcategory.style.marginLeft = '1px';
+    displayToDoCategory.innerHTML = abcd;
+    (document.getElementById('displayToDoItems')).appendChild(displayToDoCategory);
+    displayToDoCategory.value = userDataArray[ivalue].toDoCategory;
+    displayToDoCategory.id = 'displayToDoCategoryid' + ivalue;
+    document.getElementById('displayToDoCategoryid' + ivalue).disabled = true;
+    displayToDoCategory.style.height = '37px';
+    displayToDoCategory.style.borderRadius = '4px';
+    displayToDoCategory.style.marginLeft = '1px';
 
-    let checked = document.createElement("input");
-    checked.setAttribute("type", "checkbox");
-    (document.getElementById('divid')).appendChild(checked);
-    checked.value = codeArray[ivalue].id;
-    checked.id = 'checkedid' + ivalue;
-    checked.style.marginLeft = '10px';
-    checked.style.marginRight = '10px';
+    let checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    (document.getElementById('displayToDoItems')).appendChild(checkBox);
+    checkBox.value = userDataArray[ivalue].id;
+    checkBox.id = 'checkBoxid' + ivalue;
+    checkBox.style.marginLeft = '10px';
+    checkBox.style.marginRight = '10px';
 
     let p = document.createElement("p");
-    (document.getElementById('divid')).appendChild(p);
+    (document.getElementById('displayToDoItems')).appendChild(p);
 }
 
-function editUserData() {
+function editToDo() {
     let flag = 0;
 
-    for (i = 0; i < codeArray.length; i++) {
-        if ((document.getElementById('checkedid' + i)).checked == true) {
-            updateivalue = ivalue = i;
+    for (i = 0; i < userDataArray.length; i++) {
+        if ((document.getElementById('checkBoxid' + i)).checked == true) {
+            globalIValue = ivalue = i;
             flag++;
+            document.getElementById('displayErrorMessageText').innerHTML = '';
         }
     }
 
     if (flag == 0) {
-        alert('Select something to edit!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Select something to edit!';
     }
 
     if (flag > 1) {
-        alert('Try editing one item at a time!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Try editing one item at a time!';
     }
 
     if (flag == 1) {
-        document.getElementById('disptitleid' + ivalue).disabled = false;
-        document.getElementById('dispdescriptionid' + ivalue).disabled = false;
-        document.getElementById('dispstartdateid' + ivalue).disabled = false;
-        document.getElementById('dispenddateid' + ivalue).disabled = false;
-        document.getElementById('dispreminderdateid' + ivalue).disabled = false;
-        document.getElementById('dispcategoryid' + ivalue).disabled = false;
+        enableToDoFields();
 
         document.getElementById('save').style.display = 'inline';
     }
 
 }
 
-function update() {
+function enableToDoFields() {
+    document.getElementById('displayToDoTItleid' + ivalue).disabled = false;
+    document.getElementById('displayToDoDescriptionid' + ivalue).disabled = false;
+    document.getElementById('displayToDoStartDateid' + ivalue).disabled = false;
+    document.getElementById('displayToDoEndDateid' + ivalue).disabled = false;
+    document.getElementById('displayToDoReminderDateid' + ivalue).disabled = false;
+    document.getElementById('displayToDoStatusid' + ivalue).disabled = false;
+    document.getElementById('displayToDoCategoryid' + ivalue).disabled = false;
+}
+
+function updateToDo() {
     var flag = 0;
 
-    let title = document.getElementById('disptitleid' + updateivalue).value;
-    let description = document.getElementById('dispdescriptionid' + updateivalue).value;
-    let startdate = document.getElementById('dispstartdateid' + updateivalue).value;
-    let enddate = document.getElementById('dispenddateid' + updateivalue).value;
-    let reminderdate = document.getElementById('dispreminderdateid' + updateivalue).value;
-    let category = document.getElementById('dispcategoryid' + updateivalue).value;
+    let title = document.getElementById('displayToDoTItleid' + globalIValue).value;
+    let description = document.getElementById('displayToDoDescriptionid' + globalIValue).value;
+    let startDate = document.getElementById('displayToDoStartDateid' + globalIValue).value;
+    let endDate = document.getElementById('displayToDoEndDateid' + globalIValue).value;
+    let reminderDate = document.getElementById('displayToDoReminderDateid' + globalIValue).value;
+    let toDoCategory = document.getElementById('displayToDoStatusid' + globalIValue).value;
 
     if (flag == 0)
-        flag = isnull(title, description, startdate, enddate, reminderdate, category, flag);
+        flag = isUnfilled(title, description, startDate, endDate, reminderDate, toDoCategory, flag);
 
     if (flag == 0)
-        flag = datevalidateupdate(startdate, enddate, reminderdate, flag);
+        flag = dateValidationForUpdatedToDo(startDate, endDate, reminderDate, flag);
 
     if (flag == 0) {
-        let codeObject = {
-            id: codeArray[updateivalue].id,
-            email: codeArray[updateivalue].email,
+        let userDataObject = {
+            id: userDataArray[globalIValue].id,
+            email: userDataArray[globalIValue].email,
             title,
             description,
-            startdate,
-            enddate,
-            reminderdate,
-            category,
-            status: codeArray[updateivalue].status
+            startDate,
+            endDate,
+            reminderDate,
+            toDoCategory,
+            status: userDataArray[globalIValue].status
         }
 
-        codeArray[updateivalue] = codeObject;
-        localStorage.setItem('todo', JSON.stringify(codeArray));
+        userDataArray[globalIValue] = userDataObject;
+        localStorage.setItem('todo', JSON.stringify(userDataArray));
 
-        document.getElementById('disptitleid' + ivalue).disabled = true;
-        document.getElementById('dispdescriptionid' + ivalue).disabled = true;
-        document.getElementById('dispstartdateid' + ivalue).disabled = true;
-        document.getElementById('dispenddateid' + ivalue).disabled = true;
-        document.getElementById('dispreminderdateid' + ivalue).disabled = true;
-        document.getElementById('dispcategoryid' + ivalue).disabled = true;
+        disableToDoFields();
 
         document.getElementById('save').style.display = 'none';
-        (document.getElementById('checkedid' + updateivalue)).checked = false;
+        (document.getElementById('checkBoxid' + globalIValue)).checkBox = false;
     }
+}
+
+function disableToDoFields() {
+    document.getElementById('displayToDoTItleid' + ivalue).disabled = true;
+    document.getElementById('displayToDoDescriptionid' + ivalue).disabled = true;
+    document.getElementById('displayToDoStartDateid' + ivalue).disabled = true;
+    document.getElementById('displayToDoEndDateid' + ivalue).disabled = true;
+    document.getElementById('displayToDoReminderDateid' + ivalue).disabled = true;
+    document.getElementById('displayToDoStatusid' + ivalue).disabled = true;
+    document.getElementById('displayToDoCategoryid' + ivalue).disabled = true;
 }
 
 function markAsDone() {
     let flag = 0;
 
-    for (i = 0; i < codeArray.length; i++) {
-        if ((document.getElementById('checkedid' + i)).checked == true) {
-            codeArray[i].status = 'Done';
-            localStorage.setItem('todo', JSON.stringify(codeArray));
+    for (i = 0; i < userDataArray.length; i++) {
+        if ((document.getElementById('checkBoxid' + i)).checked == true) {
+            document.getElementById('displayErrorMessageText').innerHTML = '';
+            userDataArray[i].status = 'Done';
+            localStorage.setItem('todo', JSON.stringify(userDataArray));
             flag++;
             location.assign('todo.html');
         }
     }
 
     if (flag == 0) {
-        alert('Select something to mark as done!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Select something to mark as done!';
     }
 }
 
 function deleteToDo() {
     let flag = 0;
 
-    for (i = 0; i < codeArray.length; i++) {
-        if ((document.getElementById('checkedid' + i)).checked == true) {
-            codeArray.splice(i, 1);
-            localStorage.setItem('todo', JSON.stringify(codeArray));
+    for (i = 0; i < userDataArray.length; i++) {
+        if ((document.getElementById('checkBoxid' + i)).checked == true) {
+            userDataArray.splice(i, 1);
+            localStorage.setItem('todo', JSON.stringify(userDataArray));
             flag++;
+            document.getElementById('displayErrorMessageText').innerHTML = '';
             location.assign('todo.html');
         }
     }
 
     if (flag == 0) {
-        alert('Select something to delete!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Select something to delete!';
     }
+}
+
+function hidingEditDoneDelete() {
+    document.getElementById('edit').style.display = 'none';
+    document.getElementById('done').style.display = 'none';
+    document.getElementById('delete').style.display = 'none';
+}
+
+function hidingDateFilterButtons() {
+    document.getElementById('startDateForFilter').style.display = 'none';
+    document.getElementById('dueDateForFilter').style.display = 'none';
+    document.getElementById('searchForDateFilter').style.display = 'none';
+}
+
+function showingDateFilterButtons() {
+    document.getElementById('startDateForFilter').style.display = 'inline';
+    document.getElementById('dueDateForFilter').style.display = 'inline';
+    document.getElementById('searchForDateFilter').style.display = 'inline';
 }
 
 function applyFilter() {
     let filter = document.getElementById('filters').value;
-    document.getElementById('edit').style.display = 'none';
-    document.getElementById('done').style.display = 'none';
-    document.getElementById('delete').style.display = 'none';
+    hidingEditDoneDelete();
 
     if (filter == 'doneFilter') {
-        document.getElementById('fromdate').style.display = 'none';
-        document.getElementById('todate').style.display = 'none';
-        document.getElementById('search').style.display = 'none';
+        hidingDateFilterButtons();
 
         flag = 0;
 
-        var a = document.getElementById("divid");
+        var a = document.getElementById("displayToDoItems");
         var deleteChild = a.lastElementChild;
 
         while (deleteChild) {
@@ -348,10 +377,10 @@ function applyFilter() {
             deleteChild = a.lastElementChild;
         }
 
-        for (i = 0; i < codeArray.length; i++) {
-            if (email === codeArray[i].email) {
-                if (codeArray[i].status == 'Done') {
-                    display(codeArray, i);
+        for (i = 0; i < userDataArray.length; i++) {
+            if (email === userDataArray[i].email) {
+                if (userDataArray[i].status == 'Done') {
+                    displayToDo(userDataArray, i);
                     flag++;
                 }
             }
@@ -361,7 +390,7 @@ function applyFilter() {
             var norecord = document.createElement("p");
             var value = document.createTextNode("No Record Found");
             norecord.appendChild(value);
-            var disp = document.getElementById("divid");
+            var disp = document.getElementById("displayToDoItems");
             disp.appendChild(norecord);
             norecord.style.fontSize = '43px';
             norecord.style.fontWeight = '550';
@@ -371,13 +400,11 @@ function applyFilter() {
     }
 
     if (filter == 'pendingFilter') {
-        document.getElementById('fromdate').style.display = 'none';
-        document.getElementById('todate').style.display = 'none';
-        document.getElementById('search').style.display = 'none';
+        hidingDateFilterButtons();
 
         flag = 0;
 
-        var a = document.getElementById("divid");
+        var a = document.getElementById("displayToDoItems");
         var deleteChild = a.lastElementChild;
 
         while (deleteChild) {
@@ -385,10 +412,10 @@ function applyFilter() {
             deleteChild = a.lastElementChild;
         }
 
-        for (i = 0; i < codeArray.length; i++) {
-            if (email === codeArray[i].email) {
-                if (codeArray[i].status == 'Pending') {
-                    display(codeArray, i);
+        for (i = 0; i < userDataArray.length; i++) {
+            if (email === userDataArray[i].email) {
+                if (userDataArray[i].status == 'Pending') {
+                    displayToDo(userDataArray, i);
                     flag++;
                 }
             }
@@ -398,7 +425,7 @@ function applyFilter() {
             var norecord = document.createElement("p");
             var value = document.createTextNode("No Record Found");
             norecord.appendChild(value);
-            var disp = document.getElementById("divid");
+            var disp = document.getElementById("displayToDoItems");
             disp.appendChild(norecord);
             norecord.style.fontSize = '43px';
             norecord.style.fontWeight = '550';
@@ -408,9 +435,8 @@ function applyFilter() {
     }
 
     if ((document.getElementById('filters')).value == 'dateRangeFilter') {
-        document.getElementById('fromdate').style.display = 'inline';
-        document.getElementById('todate').style.display = 'inline';
-        document.getElementById('search').style.display = 'inline';
+
+        showingDateFilterButtons();
     }
 
     if (filter == 'removeFilter') {
@@ -419,16 +445,16 @@ function applyFilter() {
 
 }
 
-function datefilter() {
-    let fromdate = document.getElementById('fromdate').value;
-    let todate = document.getElementById('todate').value;
+function dateFilter() {
+    let startDateForFilter = document.getElementById('startDateForFilter').value;
+    let dueDateForFilter = document.getElementById('dueDateForFilter').value;
 
-    if (fromdate == '' || todate == '') {
-        alert('Select the dates please!');
+    if (startDateForFilter == '' || dueDateForFilter == '') {
+        document.getElementById('displayErrorMessageText').innerHTML = 'Select the dates please!';
     } else {
         flag = 0;
 
-        var a = document.getElementById("divid");
+        var a = document.getElementById("displayToDoItems");
         var deleteChild = a.lastElementChild;
 
         while (deleteChild) {
@@ -436,10 +462,10 @@ function datefilter() {
             deleteChild = a.lastElementChild;
         }
 
-        for (i = 0; i < codeArray.length; i++) {
-            if (email === codeArray[i].email) {
-                if ((fromdate < codeArray[i].startdate && codeArray[i].startdate < todate) || (fromdate < codeArray[i].enddate && codeArray[i].enddate < todate)) {
-                    display(codeArray, i);
+        for (i = 0; i < userDataArray.length; i++) {
+            if (email === userDataArray[i].email) {
+                if ((startDateForFilter < userDataArray[i].startDate && userDataArray[i].startDate < dueDateForFilter) || (startDateForFilter < userDataArray[i].endDate && userDataArray[i].endDate < dueDateForFilter)) {
+                    displayToDo(userDataArray, i);
                     flag++
                 }
             }
@@ -449,7 +475,7 @@ function datefilter() {
             var norecord = document.createElement("p");
             var value = document.createTextNode("No Record Found");
             norecord.appendChild(value);
-            var disp = document.getElementById("divid");
+            var disp = document.getElementById("displayToDoItems");
             disp.appendChild(norecord);
             norecord.style.fontSize = '43px';
             norecord.style.fontWeight = '550';

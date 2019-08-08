@@ -1,3 +1,10 @@
+function checkIfNotSignedIn() {
+    let email = sessionStorage.getItem('email');
+
+    if (email != null)
+        location.assign('todo.html');
+};
+
 function register(event) {
     document.getElementById('firstName').style.border = 'none';
     document.getElementById('lastName').style.border = 'none';
@@ -59,7 +66,7 @@ function emailExists(email, flag) {
 
     for (i = 0; i < userDataArray.length; i++) {
         if (email === userDataArray[i].email) {
-            alert('The email already exists!');
+            document.getElementById('displayErrorMessageText').innerHTML = 'The email already exists!';
             flag++;
             break;
         }
@@ -119,7 +126,7 @@ function userEmailValidation(email, flag) {
     let emailRegularExpression = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     if (emailRegularExpression.test(email) == false) {
-        alert('Please enter a valid email');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please enter a valid email';
         flag++;
     }
 
@@ -131,17 +138,17 @@ function userDataValidation(firstName, lastName, password, flag) {
     let nameRegularExpression = /^[A-Za-z]+$/;
 
     if (passwordRegularExpression.test(password) == false) {
-        alert('Please enter a password of length between 8 and 15 characters with atleast one Uppercase, one Lowercase character, one Digit and atleast one special character!');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please enter a password of length between 8 and 15 characters with atleast one Uppercase, one Lowercase character, one Digit and atleast one special character!';
         flag++;
     }
 
     if (nameRegularExpression.test(firstName) === false) {
-        alert('Please enter a valid first name');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please enter a valid first name';
         flag++;
     }
 
     if (nameRegularExpression.test(lastName) == false) {
-        alert('Please enter a valid last name');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Please enter a valid last name';
         flag++;
     }
 
@@ -215,14 +222,4 @@ function updateUserData() {
 
         document.getElementById('save').style.display = 'none';
     }
-}
-
-function registeredSuccessfully() {
-    if (sessionStorage.getItem('registered') == 1)
-        document.getElementById('displayRegisteredSuccessfully').style.display = 'inline-block';
-
-    setTimeout(() => {
-        sessionStorage.setItem('registered', 0);
-        document.getElementById('displayRegisteredSuccessfully').style.display = 'none';
-    }, 2500);
 }

@@ -10,7 +10,7 @@
     <script src="../js/registration.js"></script>
 </head>
 
-<body>
+<body onload="checkIfNotSignedIn()">
     <header>
         <a href="home.html" class="home">
             <h6>Systemize</h6>
@@ -18,6 +18,10 @@
     </header>
 
     <main>
+        <div class="displayErrorMessage">
+            <span id="displayErrorMessageText"></span>
+        </div>
+
         <div class="loginFormBackground">
             <form>
                 <img id="displayProfileImage" src="../images/dp.jpg" alt="Profile Pic" height="150" width="150">
@@ -27,12 +31,13 @@
                 <input type="text" id="lastName" placeholder="Last name" class="formElement" />
                 <br><br>
 
-                <input type="text" id="address" class="formElement" placeholder="Address" style="width: 515px" />
+                <input type="text" id="address" class="formElement" placeholder="Address" />
                 <br><br>
 
                 <span>Gender:</span>&nbsp;&nbsp;
                 <span style="font-weight: 580">Male </span><input type="radio" name="gender" value="male" /> &nbsp;&nbsp;
-                <span style="font-weight: 580">Female </span><input type="radio" name="gender" value="female" /> &nbsp; <span id="genderNotSelected">Please select your gender!</span>
+                <span style="font-weight: 580">Female </span><input type="radio" name="gender" value="female" /> &nbsp;
+                <span id="genderNotSelected">Please select your gender!</span>
                 <br><br>
 
                 <span style="margin-left: 89px">Profile image: </span><input type="file" id="image" accept="image/*" onchange="changeProfilePicture()" />

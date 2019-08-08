@@ -27,3 +27,20 @@ span {
     color: #f4511e;
     text-shadow: -1px 1px black;
 }
+
+.displayErrorMessage {
+    background-color: rgba(225, 225, 225, 0.5);
+    margin-left: 27%;
+    margin-bottom: 2%;
+    border-radius: 4px;
+    width: 618px;
+    line-height: 30px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    padding-top: 7px;
+}
+
+#address {
+    width: 515px;
+}

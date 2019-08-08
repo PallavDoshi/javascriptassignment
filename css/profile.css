@@ -25,3 +25,20 @@ span {
 .formElement {
     height: 34px;
 }
+
+#address {
+    width: 500px
+}
+
+#profilePicture {
+    margin-left: 62px;
+    display: none;
+}
+
+#image {
+    display: none
+}
+
+#save {
+    display: none
+}

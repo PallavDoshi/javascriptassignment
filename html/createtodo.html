@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/todo.css">
     <script src="../js/todo.js"></script>
+
 </head>
 
 <body>
@@ -16,32 +17,36 @@
             <h6>Systemize</h6>
         </a>
         <input type="button" value='Log Out' id="logOut" onclick="logOut()" class="button" />
-        <input type="button" value='My Profile' id="profile" onclick="location.assign('profile.html')" class="button" />
+        <input type="button" value='My Profile' id="viewProfilePage" onclick="location.assign('profile.html')" class="button" />
 
         <div class="clearfix"></div>
     </header>
 
     <main>
+        <div class="displayErrorMessage">
+            <span id="displayErrorMessageText"></span>
+        </div>
+
         <div class="loginFormBackground">
             <div id="form">
-                <span class="createtodo">Title:</span> <input type="text" id="title" class="formElement" style="width: 300px">
+                <span class="createToDo">Title:</span> <input type="text" id="title" class="formElement">
                 <br><br>
-                <span class="createtodo">Description:</span> <input type="text" id="description" class="formElement" style="width: 600px">
+                <span class="createToDo">Description:</span> <input type="text" id="description" class="formElement">
                 <br><br>
-                <span class="createtodo">Start Date:</span> <input type="date" id="startdate" class="formElement" style="width: 150px">
+                <span class="createToDo">Start Date:</span> <input type="date" id="startDate" class="formElement">
                 <br><br>
-                <span class="createtodo" style="margin-left: 4px">Due Date:</span> <input type="date" id="enddate" class="formElement" style="width: 150px">
+                <span class="createToDo" style="margin-left: 4px">Due Date:</span> <input type="date" id="endDate" class="formElement">
                 <br><br>
-                <span class="createtodo" style="margin-left: -40px">Reminder Date:</span> <input type="date" id="reminderdate" class="formElement" style="width: 150px">
+                <span class="createToDo" style="margin-left: -40px">Reminder Date:</span> <input type="date" id="reminderDate" class="formElement">
                 <br><br>
-                <span class="createtodo">Category:</span> &nbsp;&nbsp;
-                <select id="category" class="formElement">
+                <span class="createToDo">Category:</span> &nbsp;&nbsp;
+                <select id="toDoCategory" class="formElement">
                     <option value="work">Work</option>
                     <option value="home">Home</option>
                     <option value="personal">Personal</option>
                 </select>
                 <br><br>
-                <input type="button" value="Create" id="submit" onclick="todosave()" class="button">
+                <input type="button" value="Create" id="submit" onclick="saveToDo()" class="button">
             </div>
         </div>
 

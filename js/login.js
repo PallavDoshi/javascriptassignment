@@ -1,5 +1,12 @@
 var flag = 0;
 
+(function() {
+    let email = sessionStorage.getItem('email');
+
+    if (email != null)
+        location.assign('todo.html');
+})();
+
 function login(event) {
     flag = 0;
 
@@ -45,13 +52,23 @@ function emailValidation(email, password) {
     }
 
     if (ivalue == -1) {
-        alert('The email does not exist');
+        document.getElementById('displayErrorMessageText').innerHTML = 'The email does not exist';
 
     } else if (password === userDataArray[ivalue].password) {
         sessionStorage.setItem('email', email);
         sessionStorage.setItem('ivalue', i);
         location.assign('todo.html');
     } else {
-        alert('Wrong password! Try again');
+        document.getElementById('displayErrorMessageText').innerHTML = 'Wrong password! Try again';
     }
+}
+
+function registeredSuccessfully() {
+    if (sessionStorage.getItem('registered') == 1)
+        document.getElementById('displayRegisteredSuccessfully').style.display = 'inline-block';
+
+    setTimeout(() => {
+        sessionStorage.setItem('registered', 0);
+        document.getElementById('displayRegisteredSuccessfully').style.display = 'none';
+    }, 2500);
 }

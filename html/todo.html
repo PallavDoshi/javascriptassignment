@@ -21,11 +21,15 @@
     </header>
 
     <main>
+        <div class="displayErrorMessage">
+            <span id="displayErrorMessageText"></span>
+        </div>
+
         <div class="loginFormBackground">
             <div id="form">
                 <input type="button" value="Create" class="button" onclick="location.assign('createtodo.html')"> &nbsp;&nbsp;
-                <input type="button" value='Edit' onclick="editUserData()" id="edit" class="button" /> &nbsp;&nbsp;
-                <input type="button" value='Save' id="save" onclick="updateUserData()" style="display: none" class="button" /> &nbsp;&nbsp;
+                <input type="button" value='Edit' onclick="editToDo()" id="edit" class="button" /> &nbsp;&nbsp;
+                <input type="button" value='Save' id="save" onclick="updateToDo()" class="button" /> &nbsp;&nbsp;
                 <input type="button" value='Mark Done' onclick="markAsDone()" id="done" class="button" /> &nbsp;&nbsp;
                 <input type="button" value='Delete' onclick="deleteToDo()" id="delete" class="button" />
             </div>
@@ -34,32 +38,32 @@
         <div class="loginFormBackground" style="margin-top: 5px">
             <div id="form">
                 <span id="filterHeading">Filter:</span>
-                <select id="filters" onchange="applyFilter()" class="button" style="color: black">
+                <select id="filters" onchange="applyFilter()" class="button">
                     <option value="">--</option>
                     <option value="dateRangeFilter">Date Range</option>
                     <option value="doneFilter">Done</option>
                     <option value="pendingFilter">Pending</option>
                     <option value="removeFilter">Remove Filter</option>
                 </select> &nbsp;&nbsp;
-                <input type="date" id="fromdate" style="display: none" class="button"> &nbsp;&nbsp;
-                <input type="date" id="todate" style="display: none" class="button"> &nbsp;&nbsp;
-                <input type="button" id="search" value="Search" onclick="datefilter()" style="display: none" class="button">
+                <input type="date" id="startDateForFilter" class="button"> &nbsp;&nbsp;
+                <input type="date" id="dueDateForFilter" class="button"> &nbsp;&nbsp;
+                <input type="button" id="searchForDateFilter" value="Search" onclick="dateFilter()" class="button">
             </div>
         </div>
 
-        <div id="tablehead">
+        <div id="toDoTableHead">
             <br>
-            <span class="titles" style="margin-left:56px">Title</span>
-            <span class="titles" style="margin-left:100px">Description</span>
-            <span class="titles" style="margin-left:60px">Start</span>
-            <span class="titles" style="margin-left:74px">Due</span>
-            <span class="titles" style="margin-left:55px">Reminder</span>
-            <span class="titles" style="margin-left:20px">Status</span>
-            <span class="titles" style="margin-left:20px">Category</span>
+            <span class="toDoTableTitle" style="margin-left:65px">Title</span>
+            <span class="toDoTableTitle" style="margin-left:107px">Description</span>
+            <span class="toDoTableTitle" style="margin-left:65px">Start</span>
+            <span class="toDoTableTitle" style="margin-left:83px">Due</span>
+            <span class="toDoTableTitle" style="margin-left:66px">Reminder</span>
+            <span class="toDoTableTitle" style="margin-left:31px">Status</span>
+            <span class="toDoTableTitle" style="margin-left:28px">Category</span>
             <br>
         </div>
 
-        <div id="divid">
+        <div id="displayToDoItems">
 
         </div>
     </main>
